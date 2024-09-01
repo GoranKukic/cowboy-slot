@@ -2,7 +2,7 @@
 
 **Work in Progress 🚧**
 
-Welcome to the Cowboy Slot project! This is a slot game simulator with a Wild West theme, built using modern web technologies. 
+Welcome to the Cowboy Slot project! This is a slot game simulator with a Wild West theme, built using modern web technologies.
 
 ## Technologies Used
 
@@ -15,3 +15,5 @@ Welcome to the Cowboy Slot project! This is a slot game simulator with a Wild We
 - Wild West-themed slot game with various animations and effects.
 - Built with PixiJS for high-performance rendering and animations.
 - Written in TypeScript for better maintainability and type safety.
+- **Assets provided by Retro Style Games**: The game utilizes high-quality assets provided by [Retro Style Games](https://www.retrostylegames.com) to enhance the visual experience.
+

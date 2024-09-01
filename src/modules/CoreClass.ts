@@ -67,7 +67,9 @@ export class CowboySlot {
 
     // Load textures using PIXI.Assets
     try {
-      const texture = await PIXI.Assets.load("./src/images/bg_landscape.png"); // Replace with your image path
+      const texture = await PIXI.Assets.load(
+        "./src/assets/images/bg_landscape.png"
+      ); // Replace with your image path
 
       // Create a sprite from the loaded texture
       const backgroundSprite = new PIXI.Sprite(texture);
