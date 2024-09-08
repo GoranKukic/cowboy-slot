@@ -1,0 +1,39 @@
+{"frames": {
+
+"slot_base.png":
+{
+	"frame": {"x":0,"y":0,"w":1128,"h":637},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1128,"h":637},
+	"sourceSize": {"w":1128,"h":637},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"slot_lighten.png":
+{
+	"frame": {"x":0,"y":637,"w":1128,"h":633},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1128,"h":633},
+	"sourceSize": {"w":1128,"h":633},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"slot_lines.png":
+{
+	"frame": {"x":0,"y":1270,"w":1128,"h":637},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1128,"h":637},
+	"sourceSize": {"w":1128,"h":637},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "slot_bg_atlas.png",
+	"format": "RGBA8888",
+	"size": {"w":1128,"h":1907},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:db538a4bbdaf4b488aaf81636b56cb65:383aa15a88e946ba789149ac7c17531e:46906c312d7527ecfc335ba0bd22d579$"
+}
+}
