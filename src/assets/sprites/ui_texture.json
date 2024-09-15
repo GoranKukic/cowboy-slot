@@ -1,0 +1,78 @@
+{"frames": {
+
+"autoplay_btn.png":
+{
+	"frame": {"x":237,"y":0,"w":302,"h":146},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":302,"h":146},
+	"sourceSize": {"w":302,"h":146},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"base_ui_1.png":
+{
+	"frame": {"x":0,"y":418,"w":1920,"h":72},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1920,"h":72},
+	"sourceSize": {"w":1920,"h":72},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"base_ui_2.png":
+{
+	"frame": {"x":0,"y":490,"w":1920,"h":1080},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1920,"h":1080},
+	"sourceSize": {"w":1920,"h":1080},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"max_bet_btn.png":
+{
+	"frame": {"x":539,"y":0,"w":302,"h":146},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":302,"h":146},
+	"sourceSize": {"w":302,"h":146},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"spin_btn.png":
+{
+	"frame": {"x":841,"y":0,"w":371,"h":382},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":371,"h":382},
+	"sourceSize": {"w":371,"h":382},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"spin_btn_glow.png":
+{
+	"frame": {"x":1212,"y":0,"w":445,"h":418},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":445,"h":418},
+	"sourceSize": {"w":445,"h":418},
+	"anchor": {"x":0.5,"y":0.5}
+},
+"spin_btn_icon.png":
+{
+	"frame": {"x":0,"y":0,"w":237,"h":232},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":237,"h":232},
+	"sourceSize": {"w":237,"h":232},
+	"anchor": {"x":0.5,"y":0.5}
+}},
+"animations": {
+	"base_ui": ["base_ui_1.png","base_ui_2.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "ui_atlas.png",
+	"format": "RGBA8888",
+	"size": {"w":1920,"h":1570},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b7ea81776de7e976cf4f8085b27a51d0:150949f92fc3c2d8e7c6de2edb335fe4:70e8ddf4bdccb5c6310b1f76684b3f41$"
+}
+}

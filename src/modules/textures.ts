@@ -12,12 +12,22 @@ export const loadTextures = async (app: PIXI.Application): Promise<void> => {
   // Make mainContainer globally accessible
   window.__MAIN_CONTAINER__ = mainContainer;
 
+  window.addEventListener("resize", () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+    mainContainer.width = app.renderer.width;
+    mainContainer.height = app.renderer.height;
+  });
+
   try {
     const texture = await PIXI.Assets.load(
       "./src/assets/images/bg_landscape.png"
     );
 
     const backgroundContainer = createContainer(mainContainer);
+    backgroundContainer.width = app.screen.width;
+    backgroundContainer.height = app.screen.height;
+    // backgroundContainer.x = 0;
+    // backgroundContainer.y = 0;
     backgroundContainer.label = "backgroundContainer";
     const bgLandscapeSprite = new PIXI.Sprite(texture);
     bgLandscapeSprite.label = "bgLandscapeSprite";

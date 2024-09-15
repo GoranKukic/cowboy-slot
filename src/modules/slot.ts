@@ -7,15 +7,21 @@ export const initSlot = function () {
 
   setTransform(
     slotContainer,
-    window.__MAIN_CONTAINER__.width / 2,
-    window.__MAIN_CONTAINER__.height / 2.6,
-    undefined, // scaleX: Keep the default scale
-    undefined, // scaleY: Keep the default scale
+    window.__PIXI_APP__.screen.width / 2,
+    window.__PIXI_APP__.screen.height / 2.4,
+    1.1, // scaleX: Keep the default scale
+    1.1, // scaleY: Keep the default scale
     undefined, // rotation: Keep default rotation
     0.5, // anchorX: Center anchor horizontally
     0.5 // anchorY: Center anchor vertically
   );
 
-  const slotSprite = createSprite(slotContainer, "slot_base.png");
-  slotSprite.label = "landscapeUISprite";
+  const slotBgSprite = createSprite(slotContainer, "slot_base.png");
+  slotBgSprite.label = "slotBgSprite";
+
+  const slotBgShadows = createSprite(slotContainer, "slot_lighten.png");
+  slotBgShadows.label = "slotBgShadows";
+
+  const slotBgLines = createSprite(slotContainer, "slot_lines.png");
+  slotBgLines.label = "slotBgLines";
 };

@@ -102,3 +102,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@font-face {
+  font-family: "Durango Western Eroded"; /* Tačan naziv fonta */
+  src: url("src/assets/fonts/Durango-Western-Eroded-Demo.otf")
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
