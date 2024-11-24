@@ -1,5 +1,12 @@
 // pixiSetup.ts
 import * as PIXI from "pixi.js";
+// import { TextStyle } from "pixi.js";
+
+declare module "pixi.js" {
+  interface TextStyle {
+    dropShadowDistance?: number;
+  }
+}
 
 export const setTransform = (
   obj: PIXI.Container | PIXI.Sprite,
@@ -122,8 +129,8 @@ export const createContainer = (
     deleteContainer(container, deleteChildren);
 
   // Optionally, if you want to retrieve global transform right after creation
-  const globalTransform = getGlobalTransform(container);
-  console.log(globalTransform); // You can use this as needed
+  // const globalTransform = getGlobalTransform(container);
+  // console.log(globalTransform); // You can use this as needed
 
   return container;
 };
@@ -167,8 +174,8 @@ export const createSprite = (
     sprite.destroy(true);
   };
 
-  const globalTransform = getGlobalTransform(sprite);
-  console.log(globalTransform); // You can use this as needed
+  // const globalTransform = getGlobalTransform(sprite);
+  // console.log(globalTransform); // You can use this as needed
 
   return sprite;
 };
@@ -245,28 +252,28 @@ export const WhiteCircle = (
 };
 
 export const primaryTextStyle = new PIXI.TextStyle({
-  fontFamily: "Durango Western Eroded, sans-serif",
-  fontSize: 45,
+  fontFamily: "Durango Western Eroded",
+  // fontFamily: "West Hood DEMO",
+  fontSize: 36,
   fontWeight: "normal",
   fill: "#FFFFFF",
   stroke: "#000000",
-  // strokeThickness: 2 as any,
-  // dropShadow: true,
-  // dropShadowColor: "#000000",
-  // dropShadowBlur: 2,
-  // dropShadowAngle: Math.PI / 6,
-  // dropShadowDistance: 2,
-  // lineJoin: "bevel",
+  dropShadow: true,
+  align: "center",
+  dropShadowDistance: 2,
 });
 
+console.log(primaryTextStyle);
+
 export const secondaryTextStyle = new PIXI.TextStyle({
-  fontFamily: "Durango Western Eroded, sans-serif",
+  fontFamily: "sans-serif",
   fontSize: 30,
   fontWeight: "normal",
   fill: "#FFFFFF",
   stroke: "#000000",
-  // strokeThickness: 2 as any,
-  // lineJoin: "round",
+  dropShadow: true,
+  align: "center",
+  // dropShadowDistance: 2,
 });
 
 export const createText = (
@@ -275,7 +282,6 @@ export const createText = (
   textStyle: PIXI.TextStyle
 ): PIXI.Text => {
   let t = new PIXI.Text(text, textStyle);
-
   (t as any).type = "Text";
   t.anchor.set(0.5);
   parent.addChild(t);
@@ -287,4 +293,3 @@ export const createText = (
 
   return t;
 };
-

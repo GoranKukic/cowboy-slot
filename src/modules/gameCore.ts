@@ -1,8 +1,8 @@
-// coreFunctions.ts
+// gameCore.ts
 import * as PIXI from "pixi.js";
 
-let assets = ["slot_bg_textures", "ui_texture",];
-let fonts = ["Durango-Western-Eroded-Demo"];
+let assets = ["slot_bg_textures", "ui_texture"];
+let fonts = ["Durango Western Eroded"];
 
 export const initGame = async (
   containerId: string
@@ -10,15 +10,12 @@ export const initGame = async (
   const app = new PIXI.Application();
 
   await app.init({
-    width: window.innerWidth,
-    height: window.innerHeight,
     resizeTo: window,
     background: "#000",
     resolution: window.devicePixelRatio,
     autoDensity: true,
+    clearBeforeRender: true,
   });
-
-  
 
   // Enable PixiJS inspector in Chrome Dev tools
   window.__PIXI_APP__ = app;
@@ -46,11 +43,8 @@ export const loadAssets = async (): Promise<void> => {
 
     // Load fonts
     const fontPromises = fonts.map((font) =>
-      PIXI.Assets.load(`src/fonts/${font}.otf`)
+      PIXI.Assets.load(`src/fonts/${font}.ttf`)
     );
-
-    // Wait for all assets to be loaded
-    // await Promise.all(assetPromises);
 
     // Wait for all assets and fonts to be loaded
     await Promise.all([...assetPromises, ...fontPromises]);

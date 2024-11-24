@@ -2,6 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  overflow: hidden;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -26,6 +27,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  /* overflow: hiden !important; */
   /* min-width: 320px; */
   /* min-height: 100vh; */
 }
@@ -41,7 +43,7 @@ h1 {
   margin: 0 auto;
   padding: 0;
   text-align: center;
-  overflow: hiden;
+  overflow: hiden !important;
 }
 
 #app canvas {
@@ -103,10 +105,10 @@ button:focus-visible {
   }
 }
 
-@font-face {
-  font-family: "Durango Western Eroded"; /* Tačan naziv fonta */
+/* @font-face {
+  font-family: "Durango Western Eroded";
   src: url("src/assets/fonts/Durango-Western-Eroded-Demo.otf")
     format("opentype");
   font-weight: normal;
   font-style: normal;
-}
+} */
