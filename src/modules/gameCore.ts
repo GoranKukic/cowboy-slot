@@ -1,7 +1,12 @@
 // gameCore.ts
 import * as PIXI from "pixi.js";
 
-let assets = ["slot_bg_textures", "ui_texture"];
+let assets = [
+  "slot_bg_textures",
+  "ui_texture",
+  "symbol_texture",
+  "tile_texture",
+];
 let fonts = ["Durango Western Eroded"];
 
 export const initGame = async (
@@ -46,10 +51,7 @@ export const loadAssets = async (): Promise<void> => {
       PIXI.Assets.load(`src/fonts/${font}.ttf`)
     );
 
-    // Wait for all assets and fonts to be loaded
     await Promise.all([...assetPromises, ...fontPromises]);
-
-    console.log("All assets loaded successfully.");
   } catch (error) {
     console.error("Error loading assets:", error);
   }

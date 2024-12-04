@@ -1,0 +1,28 @@
+{"frames": {
+
+"gold_tile.png":
+{
+	"frame": {"x":0,"y":0,"w":544,"h":531},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":531},
+	"sourceSize": {"w":544,"h":531}
+},
+"tile.png":
+{
+	"frame": {"x":544,"y":0,"w":544,"h":531},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":544,"h":531},
+	"sourceSize": {"w":544,"h":531}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "tile_atlas.png",
+	"format": "RGBA8888",
+	"size": {"w":1088,"h":531},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5cdf00bc43f10e45a2930eb79a94cbb9:9bfc34d4de923a365dc05c550d946ea4:c360fcef1e3455fdf11777a5adc7cc4c$"
+}
+}

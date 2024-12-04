@@ -38,17 +38,19 @@ export function createButton(
 export const initLandscapeUI = function () {
   const landscapeUIContainer = createContainer(window.__MAIN_CONTAINER__);
   landscapeUIContainer.label = "landscapeUIContainer";
+  window.__LANDSCAPE_UI_CONTAINER__ = landscapeUIContainer;
 
   setTransform(
     landscapeUIContainer,
     window.__PIXI_APP__.screen.width / 2,
     window.__PIXI_APP__.screen.height * 0.91,
-    1, // scaleX: Keep the default scale
-    1, // scaleY: Keep the default scale
-    0, // rotation: Keep default rotation
-    0.5, // anchorX: Center anchor horizontally
-    0.5 // anchorY: Center anchor vertically
+    1,
+    1,
+    0,
+    0.5,
+    0.5
   );
+
   const landscapeUIBase2Sprite = createSprite(
     landscapeUIContainer,
     "base_ui_2.png"

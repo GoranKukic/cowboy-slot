@@ -5,20 +5,7 @@ declare global {
   interface Window {
     __PIXI_APP__: PIXI.Application;
     __MAIN_CONTAINER__: PIXI.Container;
-  }
-}
-
-declare module "@pixi/text" {
-  interface DropShadow {
-    alpha?: number;
-    angle?: number;
-    blur?: number;
-    color?: string;
-    distance?: number;
-  }
-
-  interface TextStyle {
-    dropShadowDistance?: number;
-    dropShadow?: DropShadow; // Dodajte DropShadow kao interfejs
+    __LANDSCAPE_UI_CONTAINER__: PIXI.Container;
+    __SLOT_CONTAINER__: PIXI.Container;
   }
 }

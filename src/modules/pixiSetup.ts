@@ -1,6 +1,5 @@
 // pixiSetup.ts
 import * as PIXI from "pixi.js";
-// import { TextStyle } from "pixi.js";
 
 declare module "pixi.js" {
   interface TextStyle {
@@ -262,8 +261,6 @@ export const primaryTextStyle = new PIXI.TextStyle({
   align: "center",
   dropShadowDistance: 2,
 });
-
-console.log(primaryTextStyle);
 
 export const secondaryTextStyle = new PIXI.TextStyle({
   fontFamily: "sans-serif",

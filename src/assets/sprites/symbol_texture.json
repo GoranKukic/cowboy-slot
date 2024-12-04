@@ -1,0 +1,76 @@
+{
+  "frames": {
+    "bag_of_gold.png": {
+      "frame": { "x": 447, "y": 0, "w": 493, "h": 447 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 493, "h": 447 },
+      "sourceSize": { "w": 493, "h": 447 }
+    },
+    "barrels.png": {
+      "frame": { "x": 940, "y": 0, "w": 515, "h": 448 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 515, "h": 448 },
+      "sourceSize": { "w": 515, "h": 448 }
+    },
+    "boots.png": {
+      "frame": { "x": 0, "y": 0, "w": 447, "h": 436 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 447, "h": 436 },
+      "sourceSize": { "w": 447, "h": 436 }
+    },
+    "dynamite_crate.png": {
+      "frame": { "x": 1065, "y": 944, "w": 544, "h": 376 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 544, "h": 376 },
+      "sourceSize": { "w": 544, "h": 376 }
+    },
+    "gas_lamp.png": {
+      "frame": { "x": 519, "y": 448, "w": 522, "h": 496 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 522, "h": 496 },
+      "sourceSize": { "w": 522, "h": 496 }
+    },
+    "pile_of_gold.png": {
+      "frame": { "x": 532, "y": 944, "w": 533, "h": 428 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 533, "h": 428 },
+      "sourceSize": { "w": 533, "h": 428 }
+    },
+    "snake.png": {
+      "frame": { "x": 0, "y": 944, "w": 532, "h": 377 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 532, "h": 377 },
+      "sourceSize": { "w": 532, "h": 377 }
+    },
+    "trolley.png": {
+      "frame": { "x": 0, "y": 448, "w": 519, "h": 450 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 519, "h": 450 },
+      "sourceSize": { "w": 519, "h": 450 }
+    },
+    "wild.png": {
+      "frame": { "x": 1041, "y": 448, "w": 523, "h": 486 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 523, "h": 486 },
+      "sourceSize": { "w": 523, "h": 486 }
+    }
+  },
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "1.1",
+    "image": "symbol_atlas.png",
+    "format": "RGBA8888",
+    "size": { "w": 1609, "h": 1372 },
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:13ad4e39f69eb376b4ba3f147ec16215:46a9fa2731ac1c638f871b43bbfc9558:d295ed7153fe372207e34d26d380974a$"
+  }
+}
