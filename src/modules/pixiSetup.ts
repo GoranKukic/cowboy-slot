@@ -179,87 +179,15 @@ export const createSprite = (
   return sprite;
 };
 
-export const whiteRectangle = (
-  parent: PIXI.Container,
-  size: [number, number],
-  color: number = 0xffffff
-): PIXI.Sprite => {
-  let sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
-  sprite.label = "white rectangle";
-  sprite.width = size[0];
-  sprite.height = size[1];
-
-  // Extract the default scales
-  const defaultScaleX = sprite.scale.x;
-  const defaultScaleY = sprite.scale.y;
-
-  sprite.tint = color;
-  (sprite as any).type = "Sprite";
-
-  // Assuming addCommonProps is a global function or method of the current context
-  (this as any).addCommonProps(sprite);
-
-  sprite.anchor.set(0.5);
-  parent.addChild(sprite);
-
-  // Apply transformations using setTransform (pass defaultScaleX and defaultScaleY)
-  setTransform(sprite, defaultScaleX, defaultScaleY);
-
-  // Methods
-  (sprite as any).delete = () => {
-    parent.removeChild(sprite);
-    sprite.destroy(true);
-  };
-
-  return sprite;
-};
-
-export const WhiteCircle = (
-  parent: PIXI.Container,
-  radius: number,
-  color: number = 0xffffff
-): PIXI.Graphics => {
-  let circle = new PIXI.Graphics();
-
-  // Begin fill with the given color and draw the circle
-  circle.beginFill(color);
-  circle.drawCircle(0, 0, radius);
-  circle.endFill();
-
-  circle.label = "white circle";
-  circle.width = radius * 2;
-  circle.height = radius * 2;
-
-  const defaultScaleX = circle.scale.x;
-  const defaultScaleY = circle.scale.y;
-
-  (circle as any).type = "White Circle Graphics";
-  (this as any).addCommonProps(circle);
-
-  circle.pivot.set(0.5);
-  parent.addChild(circle);
-
-  setTransform(circle, defaultScaleX, defaultScaleY);
-
-  // Methods
-  (circle as any).delete = () => {
-    parent.removeChild(circle);
-    circle.destroy();
-  };
-
-  return circle;
-};
-
 export const primaryTextStyle = new PIXI.TextStyle({
   fontFamily: "Durango Western Eroded",
-  // fontFamily: "West Hood DEMO",
   fontSize: 36,
   fontWeight: "normal",
   fill: "#FFFFFF",
   stroke: "#000000",
   dropShadow: true,
   align: "center",
-  dropShadowDistance: 2,
+  // dropShadowDistance: 2,
 });
 
 export const secondaryTextStyle = new PIXI.TextStyle({
@@ -275,10 +203,10 @@ export const secondaryTextStyle = new PIXI.TextStyle({
 
 export const createText = (
   parent: PIXI.Container,
-  text: string,
+  text: string | number,
   textStyle: PIXI.TextStyle
 ): PIXI.Text => {
-  let t = new PIXI.Text(text, textStyle);
+  let t = new PIXI.Text({ text: text, style: textStyle });
   (t as any).type = "Text";
   t.anchor.set(0.5);
   parent.addChild(t);

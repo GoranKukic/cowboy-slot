@@ -1,5 +1,6 @@
 // gameCore.ts
 import * as PIXI from "pixi.js";
+import { addTextureToSymbols } from "./symbols";
 
 let assets = [
   "slot_bg_textures",
@@ -35,6 +36,8 @@ export const initGame = async (
   }
 
   await loadAssets();
+  // console.log("Assets loaded");
+  addTextureToSymbols();
 
   return app;
 };

@@ -8,7 +8,17 @@ import {
   primaryTextStyle,
   secondaryTextStyle,
 } from "./pixiSetup";
+import { bal } from "./slot";
 import { gsap } from "gsap";
+
+export let spinBtnContainer: PIXI.Container;
+export let spinBtnIcon: PIXI.Sprite;
+export let spinBtnCollectIcon: PIXI.Sprite;
+export let coinValueText: PIXI.Text;
+export let betValueText: PIXI.Text;
+export let betValueIncreaseText: PIXI.Text;
+export let betValueDecreaseText: PIXI.Text;
+export let maxBetBtnContainer: PIXI.Container;
 
 export function createButton(
   parent: PIXI.Container,
@@ -66,7 +76,7 @@ export const initLandscapeUI = function () {
   landscapeUIBase1Sprite.y = 60;
 
   // Spin Btn
-  const spinBtnContainer = createContainer(landscapeUIContainer);
+  spinBtnContainer = createContainer(landscapeUIContainer);
   spinBtnContainer.label = "spinBtnContainer";
 
   let spinBtnHover = createSprite(spinBtnContainer, "spin_btn_glow.png");
@@ -77,10 +87,16 @@ export const initLandscapeUI = function () {
   spinBtn.label = "spinBtn";
   setTransform(spinBtn, 0, 0, 0.5, 0.5);
 
-  let spinBtnIcon = createSprite(spinBtnContainer, "spin_btn_icon.png");
+  spinBtnIcon = createSprite(spinBtnContainer, "spin_btn_icon.png");
   spinBtnIcon.label = "spinBtnIcon";
   setTransform(spinBtnIcon, 0, 0, 0.5, 0.5);
   spinBtnIcon.anchor.set(0.56, 0.53);
+
+  spinBtnCollectIcon = createSprite(spinBtnContainer, "bag_of_gold.png");
+  spinBtnCollectIcon.label = "spinBtnCollectIcon";
+  setTransform(spinBtnCollectIcon, 0, 0, 0.25, 0.25);
+  spinBtnCollectIcon.anchor.set(0.5, 0.5);
+  spinBtnCollectIcon.alpha = 0;
 
   spinBtnContainer.interactive = true;
   spinBtnContainer.cursor = "pointer";
@@ -89,21 +105,24 @@ export const initLandscapeUI = function () {
     spinBtn.scale.set(0.49);
     spinBtnHover.scale.set(0.49);
     spinBtnIcon.scale.set(0.49);
+    spinBtnCollectIcon.scale.set(0.245);
   });
 
   spinBtnContainer.on("pointerout", () => {
     spinBtn.scale.set(0.5);
     spinBtnHover.scale.set(0.5);
     spinBtnIcon.scale.set(0.5);
+    spinBtnCollectIcon.scale.set(0.25);
   });
 
   spinBtnContainer.on("pointerdown", () => {
-    gsap.to(spinBtnIcon, {
-      rotation: "+=70", // number of rotating circles
-      duration: 7,
-      ease: "power4.out",
-    });
-    console.log("spin");
+    // console.log("spin");
+    // spin();
+    // gsap.to(spinBtnIcon, {
+    //   rotation: "+=70", // number of rotating circles
+    //   duration: 7,
+    //   ease: "power4.out",
+    // });
   });
 
   // Autoplay Btn
@@ -145,7 +164,7 @@ export const initLandscapeUI = function () {
   });
 
   // max Bet Btn
-  const maxBetBtnContainer = createContainer(landscapeUIContainer);
+  maxBetBtnContainer = createContainer(landscapeUIContainer);
   maxBetBtnContainer.label = "maxBetBtnContainer";
   setTransform(maxBetBtnContainer, 230, 25, 1, 1);
   let maxBetBtnBg = createSprite(maxBetBtnContainer, "max_bet_btn.png");
@@ -198,15 +217,11 @@ export const initLandscapeUI = function () {
   betValueContainer.label = "betValueContainer";
   betValueContainer.position.y = 60;
   // betValueContainer.position.x = 10;
-  const betValueText = createText(betValueContainer, "100", primaryTextStyle);
+  betValueText = createText(betValueContainer, "100", primaryTextStyle);
   betValueText.label = "betTitleText";
 
   // invrease bet
-  const betValueIncreaseText = createText(
-    betValueContainer,
-    ">",
-    secondaryTextStyle
-  );
+  betValueIncreaseText = createText(betValueContainer, ">", secondaryTextStyle);
   betValueIncreaseText.label = "betValueIncreaseText";
   betValueIncreaseText.position.x = 95;
 
@@ -233,11 +248,7 @@ export const initLandscapeUI = function () {
   });
 
   // decrease bet
-  const betValueDecreaseText = createText(
-    betValueContainer,
-    "<",
-    secondaryTextStyle
-  );
+  betValueDecreaseText = createText(betValueContainer, "<", secondaryTextStyle);
   betValueDecreaseText.label = "betValueDecreaseText";
   betValueDecreaseText.position.x = -95;
 
@@ -281,10 +292,6 @@ export const initLandscapeUI = function () {
   const coinValueContainer = createContainer(coinContainer);
   coinValueContainer.label = "coinValueContainer";
   coinValueContainer.position.y = 60;
-  const coinValueText = createText(
-    coinValueContainer,
-    "2500000",
-    primaryTextStyle
-  );
-  coinValueText.label = "betTitleText";
+  coinValueText = createText(coinValueContainer, bal, primaryTextStyle);
+  coinValueText.label = "coinValueText";
 };

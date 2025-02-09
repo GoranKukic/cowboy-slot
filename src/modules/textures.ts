@@ -23,7 +23,7 @@ export const loadTextures = async (app: PIXI.Application): Promise<void> => {
     const backgroundContainer = createContainer(mainContainer);
     backgroundContainer.label = "backgroundContainer";
     const bgLandscapeSprite = new PIXI.Sprite(texture);
-    bgLandscapeSprite.name = "bgLandscapeSprite";
+    bgLandscapeSprite.label = "bgLandscapeSprite";
     bgLandscapeSprite.anchor.set(0.5); // Center anchor point
     bgLandscapeSprite.x = app.screen.width / 2;
     bgLandscapeSprite.y = app.screen.height / 2;
@@ -32,8 +32,8 @@ export const loadTextures = async (app: PIXI.Application): Promise<void> => {
 
     mainContainer.addChild(backgroundContainer);
 
-    initSlot();
     initLandscapeUI();
+    initSlot();
 
     // Handle resize
     window.addEventListener("resize", () => {
@@ -45,9 +45,13 @@ export const loadTextures = async (app: PIXI.Application): Promise<void> => {
   } catch (error) {
     console.error("Failed to load texture:", error);
   }
+};
 
-  // initSlot();
-  // initLandscapeUI();
+export const hideLoadingScreen = () => {
+  const loadingScreen = document.getElementById("loading-screen");
+  if (loadingScreen) {
+    loadingScreen.style.display = "none";
+  }
 };
 
 const resizeTextures = () => {
