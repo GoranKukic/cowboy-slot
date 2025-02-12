@@ -16,9 +16,7 @@ export const loadTextures = async (app: PIXI.Application): Promise<void> => {
   window.__MAIN_CONTAINER__ = mainContainer;
 
   try {
-    const texture = await PIXI.Assets.load(
-      "./src/assets/images/bg_landscape.jpg"
-    );
+    const texture = await PIXI.Assets.load("/assets/images/bg_landscape.jpg");
 
     const backgroundContainer = createContainer(mainContainer);
     backgroundContainer.label = "backgroundContainer";

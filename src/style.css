@@ -107,7 +107,7 @@ button:focus-visible {
 
 /* @font-face {
   font-family: "Durango Western Eroded";
-  src: url("src/assets/fonts/Durango-Western-Eroded-Demo.otf")
+  src: url("public/assets/fonts/Durango-Western-Eroded-Demo.otf")
     format("opentype");
   font-weight: normal;
   font-style: normal;

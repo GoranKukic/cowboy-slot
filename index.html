@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cowboy Slot</title>
   </head>
@@ -21,12 +20,23 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font-size: 24px;
+        font-size: 0;
         z-index: 9999;
         font-family: Arial, sans-serif;
+        gap: 20px;
       "
     >
-      <div>Loading...</div>
+      <object
+        data="/assets/images/loading-gun.svg"
+        type="image/svg+xml"
+        id="loading-gun"
+        style="width: 150px; height: auto; display: block"
+      ></object>
+      <img
+        src="/assets/images/loading-text.svg"
+        alt="Loading text"
+        style="width: 150px; height: auto"
+      />
     </div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts" defer></script>

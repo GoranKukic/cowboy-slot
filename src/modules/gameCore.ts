@@ -10,6 +10,8 @@ let assets = [
 ];
 let fonts = ["Durango Western Eroded"];
 
+let animateLoading = true;
+
 export const initGame = async (
   containerId: string
 ): Promise<PIXI.Application> => {
@@ -35,9 +37,11 @@ export const initGame = async (
     console.error(`${containerId} container not found.`);
   }
 
+  loadingGunAnim();
   await loadAssets();
-  // console.log("Assets loaded");
+  console.log("Assets loaded");
   addTextureToSymbols();
+  animateLoading = false;
 
   return app;
 };
@@ -46,12 +50,12 @@ export const loadAssets = async (): Promise<void> => {
   try {
     // Load all assets
     const assetPromises = assets.map((asset) =>
-      PIXI.Assets.load(`src/assets/sprites/${asset}.json`)
+      PIXI.Assets.load(`/assets/sprites/${asset}.json`)
     );
 
     // Load fonts
     const fontPromises = fonts.map((font) =>
-      PIXI.Assets.load(`src/fonts/${font}.ttf`)
+      PIXI.Assets.load(`/fonts/${font}.ttf`)
     );
 
     await Promise.all([...assetPromises, ...fontPromises]);
@@ -59,3 +63,46 @@ export const loadAssets = async (): Promise<void> => {
     console.error("Error loading assets:", error);
   }
 };
+
+function loadingGunAnim(): void {
+  const svgObject = document.getElementById("loading-gun") as HTMLObjectElement;
+
+  if (svgObject && svgObject.contentDocument) {
+    const svgDoc = svgObject.contentDocument;
+
+    const bulletIds = [
+      "gun_bullet_1",
+      "gun_bullet_2",
+      "gun_bullet_3",
+      "gun_bullet_4",
+      "gun_bullet_5",
+      "gun_bullet_6",
+    ];
+
+    if (animateLoading) {
+      setTimeout(() => {
+        bulletIds.forEach((id, index) => {
+          const bullet = svgDoc.getElementById(id);
+          if (bullet) {
+            setTimeout(() => {
+              bullet.setAttribute("fill", "#000000");
+            }, index * 200);
+          }
+        });
+
+        setTimeout(() => {
+          bulletIds.forEach((id) => {
+            const bullet = svgDoc.getElementById(id);
+            if (bullet) {
+              bullet.setAttribute("fill", "#D2D2D2");
+            }
+          });
+
+          loadingGunAnim();
+        }, bulletIds.length * 200 + 100);
+      }, 300);
+    } else {
+      return;
+    }
+  }
+}
