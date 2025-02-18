@@ -1,78 +1,72 @@
-{"frames": {
-
-"autoplay_btn.png":
 {
-	"frame": {"x":237,"y":0,"w":302,"h":146},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":302,"h":146},
-	"sourceSize": {"w":302,"h":146},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"base_ui_1.png":
-{
-	"frame": {"x":0,"y":418,"w":1920,"h":72},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1920,"h":72},
-	"sourceSize": {"w":1920,"h":72},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"base_ui_2.png":
-{
-	"frame": {"x":0,"y":490,"w":1920,"h":1080},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1920,"h":1080},
-	"sourceSize": {"w":1920,"h":1080},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"max_bet_btn.png":
-{
-	"frame": {"x":539,"y":0,"w":302,"h":146},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":302,"h":146},
-	"sourceSize": {"w":302,"h":146},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"spin_btn.png":
-{
-	"frame": {"x":841,"y":0,"w":371,"h":382},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":371,"h":382},
-	"sourceSize": {"w":371,"h":382},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"spin_btn_glow.png":
-{
-	"frame": {"x":1212,"y":0,"w":445,"h":418},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":445,"h":418},
-	"sourceSize": {"w":445,"h":418},
-	"anchor": {"x":0.5,"y":0.5}
-},
-"spin_btn_icon.png":
-{
-	"frame": {"x":0,"y":0,"w":237,"h":232},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":237,"h":232},
-	"sourceSize": {"w":237,"h":232},
-	"anchor": {"x":0.5,"y":0.5}
-}},
-"animations": {
-	"base_ui": ["base_ui_1.png","base_ui_2.png"]
-},
-"meta": {
-	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.1",
-	"image": "ui_atlas.png",
-	"format": "RGBA8888",
-	"size": {"w":1920,"h":1570},
-	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:b7ea81776de7e976cf4f8085b27a51d0:150949f92fc3c2d8e7c6de2edb335fe4:70e8ddf4bdccb5c6310b1f76684b3f41$"
-}
+  "frames": {
+    "autoplay_btn.png": {
+      "frame": { "x": 832, "y": 276, "w": 302, "h": 146 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 302, "h": 146 },
+      "sourceSize": { "w": 302, "h": 146 }
+    },
+    "base_ui_1.png": {
+      "frame": { "x": 1, "y": 202, "w": 1920, "h": 72 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 1920, "h": 72 },
+      "sourceSize": { "w": 1920, "h": 72 }
+    },
+    "base_ui_2.png": {
+      "frame": { "x": 1, "y": 1, "w": 1920, "h": 199 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 0, "y": 881, "w": 1920, "h": 199 },
+      "sourceSize": { "w": 1920, "h": 1080 }
+    },
+    "collect_icon.png": {
+      "frame": { "x": 1440, "y": 276, "w": 228, "h": 294 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 30, "y": 3, "w": 228, "h": 294 },
+      "sourceSize": { "w": 300, "h": 300 }
+    },
+    "max_bet_btn.png": {
+      "frame": { "x": 1136, "y": 276, "w": 302, "h": 146 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 302, "h": 146 },
+      "sourceSize": { "w": 302, "h": 146 }
+    },
+    "spin_btn.png": {
+      "frame": { "x": 448, "y": 276, "w": 371, "h": 382 },
+      "rotated": true,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 371, "h": 382 },
+      "sourceSize": { "w": 371, "h": 382 }
+    },
+    "spin_btn_glow.png": {
+      "frame": { "x": 1, "y": 276, "w": 445, "h": 418 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 445, "h": 418 },
+      "sourceSize": { "w": 445, "h": 418 }
+    },
+    "spin_btn_icon.png": {
+      "frame": { "x": 832, "y": 424, "w": 237, "h": 232 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 237, "h": 232 },
+      "sourceSize": { "w": 237, "h": 232 }
+    }
+  },
+  "animations": {
+    "base_ui": ["base_ui_1.png", "base_ui_2.png"]
+  },
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "1.1",
+    "image": "ui_atlas.png",
+    "format": "RGBA8888",
+    "size": { "w": 1922, "h": 695 },
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:ae97a7791e8e09b39cc5f0ac7990dd21:5f9195506ae146b45a679e45d4c7c2cd:c97c85782b1efcc6669f121495dd311c$"
+  }
 }

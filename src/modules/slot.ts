@@ -1,6 +1,13 @@
 // slot.ts
 import * as PIXI from "pixi.js";
-import { createContainer, createSprite, setTransform } from "./pixiSetup";
+import {
+  createContainer,
+  createSprite,
+  setTransform,
+  createText,
+  primaryTextStyle,
+  winingTextStyle,
+} from "./pixiSetup";
 import { symbolChances, slot } from "./symbols";
 import { createSpin, Spin, randomInt } from "./spin";
 import {
@@ -12,42 +19,51 @@ import {
   betValueIncreaseText,
   betValueDecreaseText,
   maxBetBtnContainer,
+  maxBetText,
+  autoplayBtnContainer,
+  autoplayBtnText,
 } from "./ui";
 import { gsap } from "gsap";
 
 // Setting variables
-// let reelHeight: number = 0;
-// let startingX: number;
 let startingY: number = 0;
 let symbolWidth: number = 0;
-const speed: number = 70; // Speed of spin
-const maxIt: number = 150; // Max iterations in spin
-
+const speed: number = 70;
+const maxIt: number = 150;
+export let stake: number = 50;
+export let bal: number = 250000;
+const bets: number[] = [1, 5, 10, 20, 40, 50, 100, 500, 1000];
 let reels: PIXI.Container[];
 let sp: Spin;
-let stake: number = 10;
-export let bal: number = 250000;
 let tWin: number = 0;
 let showLines: PIXI.Ticker;
-const bets: number[] = [1, 5, 10, 20, 40, 50, 100];
 
 // Creating reel containers
-const reelWidth: number = 226; // Width of each reel
-let reelHeight: number = 625; // Height of each reel
-const reelSpacing = 25; // Space between reel
-const initialX: number = -550; // Početna X koordinata unutar slotContainer-a
-const initialY: number = -318; // Početna Y koordinata unutar slotContainer-a
+const reelWidth: number = 226;
+let reelHeight: number = 625;
+const reelSpacing = 25;
+const initialX: number = -550;
+const initialY: number = -318;
+let winningLineText: PIXI.Text;
+let winningAmountText: PIXI.Text;
 
-const gray = new PIXI.ColorMatrixFilter();
-gray.desaturate();
+// Filters
+const desaturateEffect = new PIXI.ColorMatrixFilter();
+desaturateEffect.desaturate();
+const greenTintEffect = new PIXI.ColorMatrixFilter();
+greenTintEffect.tint(0x71b443);
+const grayTintEffect = new PIXI.ColorMatrixFilter();
+grayTintEffect.tint(0x808080);
+
+let isAutoPlay: boolean = false;
 
 // States of spin
 enum States {
-  idle,
-  spinning,
-  resultWaiting,
-  resultDone,
-  stopping,
+  idle, // When nothing is happening
+  spinning, // When reels are spinning
+  resultWaiting, // When we are waiting for result
+  resultDone, // When result is done and we are
+  stopping, // When we want to stop spinning
 }
 let state: States = States.idle;
 
@@ -106,22 +122,7 @@ export const initSlot = function () {
 
   reels = [reel1, reel2, reel3, reel4, reel5];
 
-  let startingX: number = 0;
-  console.log("startingX", startingX);
-
-  // Landscape & portrait mode - Need more work aorund this
-  if (window.innerWidth > window.innerHeight) {
-    symbolWidth = reelHeight / 3;
-    startingX = window.innerWidth / 2 - (symbolWidth * 5) / 2;
-  } else {
-    symbolWidth = window.innerWidth / 5;
-    reelHeight = symbolWidth * 3;
-    if (window.innerHeight / 2 - reelHeight > 0) {
-      startingY = window.innerHeight / 2 - reelHeight;
-    } else {
-      startingY = 0;
-    }
-  }
+  symbolWidth = reelHeight / 3;
 
   reels.forEach((reel, index) => {
     reel.position.y = initialY;
@@ -178,118 +179,160 @@ export const initSlot = function () {
         reels[j].addChild(sprite);
       }
     }
-    // Mask first and last symbols
+    // Mask first and last symbol
     reels[i + 1].mask = mask;
   }
 
-  // Events for buttons
-  spinBtnContainer.on("mousedown", function () {
-    if (bal - stake < 0) {
-      return;
-    }
-    if (state == States.idle) {
-      gsap.to(spinBtnIcon, {
-        rotation: "+=60",
-        duration: 2,
-        ease: "power1.in",
-        onComplete: function () {
-          gsap.to(spinBtnIcon, {
-            rotation: "+=300",
-            duration: 1,
-            ease: "none",
-            repeat: -1,
-          });
-        },
-      });
+  const slotLogo: PIXI.Sprite = createSprite(slotContainer, "slot_logo.png");
+  slotLogo.label = "slotLogo";
+  setTransform(slotLogo, 0, -348, 0.5, 0.5);
 
-      changeBalance(-stake);
-      spin();
-    }
-    //
-    else if (state == States.spinning) {
-      state = States.stopping;
-    } else if (state == States.resultDone) {
-      spinBtnIcon.alpha = 1;
-      spinBtnCollectIcon.alpha = 0;
-      if (tWin > 0) changeBalance(tWin);
-      //   win.text = "";
-      //   winInfo.text = "";
-      reels.forEach((reel) => {
-        reel.children.forEach((ch) => {
-          ch.filters = [];
-        });
-      });
-      showLines.stop();
-      state = States.idle;
-    }
+  const winingLineInfoContainer = createContainer(slotContainer);
+  winingLineInfoContainer.label = "winingLineInfoContainer";
+  setTransform(winingLineInfoContainer, 0, 344, 0.6, 0.6);
+  winningLineText = createText(winingLineInfoContainer, "", primaryTextStyle);
+
+  const winingAmountContainer = createContainer(slotContainer);
+  winingAmountContainer.label = "winingAmountContainer";
+  setTransform(winingAmountContainer, 0, 0, 1, 1);
+  winningAmountText = createText(winingAmountContainer, "", winingTextStyle);
+
+  // Events for buttons
+  spinBtnContainer.on("pointerdown", function () {
+    triggerSpinAction();
   });
 
-  betValueIncreaseText.on("mousedown", function () {
+  // Increase Bet
+  betValueIncreaseText.on("pointerdown", function () {
+    console.log("increase bet");
+
+    betValueIncreaseText.filters = [];
+    betValueDecreaseText.filters = [];
+
     if (betValueText.text == bets[bets.length - 1].toString()) {
       return;
     } else {
-      betValueDecreaseText.filters = [];
       let temp: number = bets.indexOf(parseFloat(betValueText.text));
       let temp2: number = bets[temp + 1];
       betValueText.text = temp2.toString();
       stake = temp2;
-      // if (bets.indexOf(temp2) == bets.length - 1) {
-      //   betValueIncreaseText.filters = [gray];
-      // }
+      if (bets.indexOf(temp2) == bets.length - 1) {
+        betValueIncreaseText.filters = [grayTintEffect];
+        maxBetText.filters = [greenTintEffect];
+      }
     }
   });
 
-  betValueDecreaseText.on("mousedown", function () {
+  // Decrease Bet
+  betValueDecreaseText.on("pointerdown", function () {
+    maxBetText.filters = [];
+    betValueIncreaseText.filters = [];
+
     if (betValueText.text == bets[0].toString()) {
       return;
     } else {
-      betValueIncreaseText.filters = [];
       let temp: number = bets.indexOf(parseFloat(betValueText.text));
       let temp2: number = bets[temp - 1];
       betValueText.text = temp2.toString();
       stake = temp2;
-      // if (temp2 == bets[0]) {
-      //   betValueDecreaseText.filters = [gray];
-      // }
+      if (temp2 == bets[0]) {
+        betValueDecreaseText.filters = [grayTintEffect];
+      }
     }
   });
 
-  maxBetBtnContainer.on("mousedown", function () {
+  maxBetBtnContainer.on("pointerdown", function () {
     const maxBet = bets[bets.length - 1];
-
     betValueText.text = maxBet.toString();
     stake = maxBet;
 
-    // betValueIncreaseText.filters = [gray];
-    // betValueDecreaseText.filters = [];
+    betValueDecreaseText.filters = [];
+    maxBetText.filters = [greenTintEffect];
+    betValueIncreaseText.filters = [grayTintEffect];
+  });
+
+  autoplayBtnContainer.on("pointerdown", function () {
+    isAutoPlay = !isAutoPlay;
+
+    if (isAutoPlay === true) {
+      autoplayBtnText.filters = [greenTintEffect];
+      // Simulate event
+      triggerSpinAction();
+    } else {
+      autoplayBtnText.filters = [];
+    }
   });
 };
 
+function triggerSpinAction() {
+  winningAmountText.text = "";
+  winningLineText.text = "";
+
+  if (bal - stake < 0) {
+    return;
+  }
+
+  if (state == States.idle) {
+    gsap.to(spinBtnIcon, {
+      rotation: "+=60",
+      duration: 2,
+      ease: "power1.in",
+      onComplete: function () {
+        gsap.to(spinBtnIcon, {
+          rotation: "+=300",
+          duration: 1,
+          ease: "none",
+          repeat: -1,
+        });
+      },
+    });
+
+    changeBalance(-stake);
+    spin();
+  } else if (state == States.spinning) {
+    state = States.stopping;
+  } else if (state == States.resultDone) {
+    spinBtnIcon.alpha = 1;
+    spinBtnCollectIcon.alpha = 0;
+    if (tWin > 0) changeBalance(tWin);
+    reels.forEach((reel) => {
+      reel.children.forEach((ch) => {
+        ch.filters = [];
+      });
+    });
+    showLines.stop();
+    state = States.idle;
+
+    if (isAutoPlay === true) {
+      isAutoPlay = false;
+      autoplayBtnContainer.interactive = true;
+      autoplayBtnContainer.filters = [];
+      autoplayBtnText.filters = [];
+    }
+  }
+}
+
 export function spin() {
   if (state == States.idle) {
-    // If is in idle
-    sp = createSpin(stake, false); //Spin result
-
-    spinAnimation(sp); // Running animation
-
-    state = States.spinning; // Setting state to 'spinning'
+    sp = createSpin(stake, false);
+    spinAnimation(sp);
+    state = States.spinning;
   }
 }
 
 function spinAnimation(res: Spin) {
-  let n = 0; // Variable to timeout each reel so they don't run at same time
+  let timeout = 0;
 
-  reels.forEach((element) => {
-    // For each reel
-    n++;
+  reels.forEach((reel) => {
+    timeout++;
     setTimeout(() => {
-      animateReel(element, reels.indexOf(element), res); // Reel animation
-    }, 200 * n);
+      animateReel(reel, reels.indexOf(reel), res);
+    }, 200 * timeout);
   });
 }
 
 function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
-  let it: number = 1; // Iteration
+  let it: number = 1;
   if (state == States.spinning) {
     it = 1;
   } else if (state == States.stopping || state == States.resultWaiting) {
@@ -298,10 +341,10 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
 
   let spinDone: boolean = false;
 
-  let addNext = Math.round(symbolWidth / speed); //When to add next symbol
+  let addNext = Math.round(symbolWidth / speed);
 
-  let ticker = new PIXI.Ticker(); //Ticker
-  let sR = [...res.spinResult]; //Copy of array from Spin object
+  let ticker = new PIXI.Ticker();
+  let sR = [...res.spinResult];
 
   const blurReel = new PIXI.BlurFilter();
   blurReel.strengthY = speed / 4;
@@ -311,16 +354,15 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
   function addSymbolAtTop() {
     let temp = randomInt(0, 6);
 
-    let sprite = PIXI.Sprite.from(symbolChances.symbols[temp].texture); // Takes random texture to variable
-    sprite.height = sprite.width = symbolWidth; // Setting height and width
+    let sprite = PIXI.Sprite.from(symbolChances.symbols[temp].texture);
+    sprite.height = sprite.width = symbolWidth;
 
-    reel.removeChildAt(reel.children.length - 1); // Removing last child of reel
+    reel.removeChildAt(reel.children.length - 1);
 
     for (let m = reel.children.length - 1; m <= 0; m--) {
-      // Fixing indexes (making space at index 0)
       reel.setChildIndex(reel.children[m], m + 1);
     }
-    reel.addChildAt(sprite, 0).position.y = 0 - symbolWidth; // Adding child (sprite) at index 0
+    reel.addChildAt(sprite, 0).position.y = 0 - symbolWidth;
   }
 
   // Function to fix position of symbols
@@ -334,44 +376,37 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
     }
   }
 
-  ticker.start(); //Starting ticker...
+  ticker.start();
   ticker.add(() => {
-    //Ticker function
     if (state == States.stopping) {
       it = maxIt;
     }
     if (it % addNext === 0 && it > 30) {
-      // Condition to add symbol on top
       if (it >= maxIt) {
-        // If its after max iterations - we want to show spin result then
         if (sR.length != 0) {
-          // If we still have symbols to show
+          let sprite = PIXI.Sprite.from(sR[sR.length - 1][reelNumber].texture);
+          sprite.height = sprite.width = symbolWidth;
 
-          let sprite = PIXI.Sprite.from(sR[sR.length - 1][reelNumber].texture); // Taking textures from spin result
-          sprite.height = sprite.width = symbolWidth; // Setting height and width
-
-          sR.splice(sR.length - 1, 1); // Removing added symbol from array
-          reel.removeChildAt(reel.children.length - 1); // Removing last child of reel
+          sR.splice(sR.length - 1, 1);
+          reel.removeChildAt(reel.children.length - 1);
 
           for (let m = reel.children.length - 1; m <= 0; m--) {
-            // Fixing indexes
             reel.setChildIndex(reel.children[m], m + 1);
           }
 
-          reel.addChildAt(sprite, 0).position.y = 0 - symbolWidth; // Adding created sprite to beggining of reel
+          reel.addChildAt(sprite, 0).position.y = 0 - symbolWidth;
         } else {
-          // If there's nothing else to add
-          reel.filters = []; // Clearing filters
+          reel.filters = [];
 
-          ticker.stop(); // Stoping ticker
-          state = States.resultWaiting; // Changing state to show result
+          ticker.stop();
+          state = States.resultWaiting;
 
           it = 0;
 
-          addSymbolAtTop(); // Adding symbol at top
-          fixPosition(); // Fixing position
+          addSymbolAtTop();
+          fixPosition();
 
-          spinDone = true; // Saying to program that spin is done
+          spinDone = true;
 
           if (reelNumber == 4) {
             gsap.killTweensOf(spinBtnIcon);
@@ -385,24 +420,20 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
           }
         }
       } else {
-        // If it's not after max iterations - random elements animation
-        addSymbolAtTop(); // Adding symbol at top
+        addSymbolAtTop();
       }
     }
     reel.children.forEach((element) => {
-      // For each children on current reel
       if (it < 25 && it < maxIt) {
-        // First symbols go backward
         element.position.y -= (speed / 100) * it;
       } else {
         if (!spinDone) {
-          // If spin isn't done
-          element.position.y += speed; // Moving symbols
-          reel.filters = [blurReel]; //Blur to reel
+          element.position.y += speed;
+          reel.filters = [blurReel];
         }
       }
     });
-    it++; // Iteration
+    it++;
   });
 
   spin();
@@ -425,8 +456,17 @@ function showResults(result: Spin) {
   let winningMessage: string[] = [];
 
   let start: number = 0;
+  let time: number = 0;
+  let ln: number = 0;
+  let w: number = 0;
 
   if (copySOWf.length > 0) {
+    if (isAutoPlay === true) {
+      autoplayBtnContainer.interactive = false;
+      autoplayBtnContainer.filters = [grayTintEffect];
+    }
+    isAutoPlay = false;
+
     for (let i = 0; i < copySOWf.length; i++) {
       symbolsToHighlight[i] = [];
       inner: for (let j = start; j < 5; j++) {
@@ -436,62 +476,85 @@ function showResults(result: Spin) {
               reels[q].children[slot.paylines[j][q] + 1]
             );
           }
-          winningMessage.push(`Won ${result.winningLines[j]} on line ${j + 1}`);
+          winningMessage.push(`Line ${j + 1} pays ${result.winningLines[j]}`);
           start = j + 1;
+          isAutoPlay = !isAutoPlay;
+          autoplayBtnText.filters = [];
+
           break inner;
         }
       }
     }
+
+    w = winC.reduce((sum, value) => sum + value, 0);
+
+    winningAmountText.text = `${Math.floor(
+      Number(winningAmountText.text)
+    )} coins`;
+
+    winningAmountText.alpha = 0;
+
+    gsap.to(winningAmountText, {
+      alpha: 1,
+      duration: 0.5,
+      ease: "power2.inOut",
+      onStart: () => {
+        let tempValue = { value: 0 };
+
+        gsap.to(tempValue, {
+          duration: 1,
+          value: w,
+          ease: "power2.out",
+          onUpdate: function () {
+            winningAmountText.text = `${Math.round(tempValue.value)} coins`;
+          },
+        });
+      },
+    });
+
+    if (winningMessage.length === 1) {
+      winningLineText.text = winningMessage[0];
+    }
+
     showLines.start();
     spinBtnIcon.alpha = 0;
     spinBtnCollectIcon.alpha = 1;
-
-    // bttn.texture = app.loader.resources["satchel"].texture;
   } else {
     state = States.idle;
+
+    if (isAutoPlay === true) {
+      triggerSpinAction();
+    }
   }
 
-  let time: number = 0;
-  let ln: number = 0;
-  let w: number = 0;
-
   showLines.add(() => {
-    if (time >= 30 * copySOWf.length) {
-      if (time % 120 == 0) {
-        // winInfo.text = winningMessage[ln];
-        reels.forEach((reel) => {
-          reel.children.forEach((ch) => {
-            if (ch == symbolsToHighlight[ln][reels.indexOf(reel)]) {
-              ch.filters = [];
-            } else {
-              ch.filters = [gray];
-            }
-          });
+    if (time < 30) {
+      // First 30 frames: Highlight all symbols from all winning lines
+      reels.forEach((reel) => {
+        reel.children.forEach((ch) => {
+          if (symbolsToHighlight.some((line) => line.includes(ch))) {
+            ch.filters = [];
+          } else {
+            ch.filters = [desaturateEffect];
+          }
         });
-        if (ln == symbolsToHighlight.length - 1) {
-          ln = 0;
-        } else {
-          ln++;
-        }
-      }
+      });
     } else {
-      if (time % 30 == 0) {
-        w = w + winC[ln];
-        // win.text = w.toString();
+      // After 30 frames, animation per winning line
+      if (time % 120 == 0) {
+        winningLineText.text = winningMessage[ln];
+
         reels.forEach((reel) => {
           reel.children.forEach((ch) => {
             if (ch == symbolsToHighlight[ln][reels.indexOf(reel)]) {
               ch.filters = [];
             } else {
-              ch.filters = [gray];
+              ch.filters = [desaturateEffect];
             }
           });
         });
-        if (ln == symbolsToHighlight.length - 1) {
-          ln = 0;
-        } else {
-          ln++;
-        }
+
+        ln = (ln + 1) % symbolsToHighlight.length;
       }
     }
     time++;
@@ -499,11 +562,9 @@ function showResults(result: Spin) {
 }
 
 function changeBalance(changeBy: number) {
-  console.log("changeBy", changeBy);
-
   bal = bal + changeBy;
-  let balS: string = bal.toFixed(2); // String with 2 digits after the decimal point
-  let balInt: string = bal.toFixed(0); // String with no digits after the decimal point
+  let balS: string = bal.toFixed(2);
+  let balInt: string = bal.toFixed(0);
   let output: string = "";
   output = `.${balS[balS.length - 2]}${balS[balS.length - 1]}`;
   let j = 0;

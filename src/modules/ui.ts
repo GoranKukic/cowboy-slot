@@ -8,7 +8,7 @@ import {
   primaryTextStyle,
   secondaryTextStyle,
 } from "./pixiSetup";
-import { bal } from "./slot";
+import { bal, stake } from "./slot";
 import { gsap } from "gsap";
 
 export let spinBtnContainer: PIXI.Container;
@@ -19,47 +19,15 @@ export let betValueText: PIXI.Text;
 export let betValueIncreaseText: PIXI.Text;
 export let betValueDecreaseText: PIXI.Text;
 export let maxBetBtnContainer: PIXI.Container;
-
-export function createButton(
-  parent: PIXI.Container,
-  textureName: string
-): PIXI.Sprite {
-  // Create the button sprite using the utility function
-  const button = createSprite(parent, textureName, {
-    // Apply the default transformations
-    x: parent.width / 2,
-    y: parent.height / 2,
-    scaleX: 0.5,
-    scaleY: 0.5,
-    // rotation: number;
-    anchorX: 0.5, // Center the anchor
-    anchorY: 0.5, // Center the anchor
-  });
-
-  console.log("parent.width: ", parent.width);
-  console.log("parent.height: ", parent.height);
-
-  // Set interactive property
-  button.interactive = true;
-
-  return button;
-}
+export let maxBetText: PIXI.Text;
+export let autoplayBtnContainer: PIXI.Container;
+export let autoplayBtnText: PIXI.Text;
+export let landscapeUIContainer: PIXI.Container;
 
 export const initLandscapeUI = function () {
-  const landscapeUIContainer = createContainer(window.__MAIN_CONTAINER__);
+  landscapeUIContainer = createContainer(window.__MAIN_CONTAINER__);
   landscapeUIContainer.label = "landscapeUIContainer";
   window.__LANDSCAPE_UI_CONTAINER__ = landscapeUIContainer;
-
-  setTransform(
-    landscapeUIContainer,
-    window.__PIXI_APP__.screen.width / 2,
-    window.__PIXI_APP__.screen.height * 0.91,
-    1,
-    1,
-    0,
-    0.5,
-    0.5
-  );
 
   const landscapeUIBase2Sprite = createSprite(
     landscapeUIContainer,
@@ -74,10 +42,13 @@ export const initLandscapeUI = function () {
   );
   landscapeUIBase1Sprite.label = "landscapeUIBase1Sprite";
   landscapeUIBase1Sprite.y = 60;
+  landscapeUIBase1Sprite.scale.y = 0.8;
 
   // Spin Btn
   spinBtnContainer = createContainer(landscapeUIContainer);
   spinBtnContainer.label = "spinBtnContainer";
+  spinBtnContainer.scale.set(0.8);
+  spinBtnContainer.y = 10;
 
   let spinBtnHover = createSprite(spinBtnContainer, "spin_btn_glow.png");
   spinBtnHover.label = "spinBtnHover";
@@ -92,9 +63,9 @@ export const initLandscapeUI = function () {
   setTransform(spinBtnIcon, 0, 0, 0.5, 0.5);
   spinBtnIcon.anchor.set(0.56, 0.53);
 
-  spinBtnCollectIcon = createSprite(spinBtnContainer, "bag_of_gold.png");
+  spinBtnCollectIcon = createSprite(spinBtnContainer, "collect_icon.png");
   spinBtnCollectIcon.label = "spinBtnCollectIcon";
-  setTransform(spinBtnCollectIcon, 0, 0, 0.25, 0.25);
+  setTransform(spinBtnCollectIcon, 0, -4, 0.4, 0.4);
   spinBtnCollectIcon.anchor.set(0.5, 0.5);
   spinBtnCollectIcon.alpha = 0;
 
@@ -102,36 +73,20 @@ export const initLandscapeUI = function () {
   spinBtnContainer.cursor = "pointer";
 
   spinBtnContainer.on("pointerover", () => {
-    spinBtn.scale.set(0.49);
-    spinBtnHover.scale.set(0.49);
-    spinBtnIcon.scale.set(0.49);
-    spinBtnCollectIcon.scale.set(0.245);
+    spinBtnContainer.scale.set(0.78);
   });
 
   spinBtnContainer.on("pointerout", () => {
-    spinBtn.scale.set(0.5);
-    spinBtnHover.scale.set(0.5);
-    spinBtnIcon.scale.set(0.5);
-    spinBtnCollectIcon.scale.set(0.25);
-  });
-
-  spinBtnContainer.on("pointerdown", () => {
-    // console.log("spin");
-    // spin();
-    // gsap.to(spinBtnIcon, {
-    //   rotation: "+=70", // number of rotating circles
-    //   duration: 7,
-    //   ease: "power4.out",
-    // });
+    spinBtnContainer.scale.set(0.8);
   });
 
   // Autoplay Btn
-  const autoplayBtnContainer = createContainer(landscapeUIContainer);
+  autoplayBtnContainer = createContainer(landscapeUIContainer);
   autoplayBtnContainer.label = "autoplayBtnContainer";
-  setTransform(autoplayBtnContainer, -230, 25, 1, 1);
+  setTransform(autoplayBtnContainer, -200, 35, 0.8, 0.8);
   let autoplayBtnBg = createSprite(autoplayBtnContainer, "autoplay_btn.png");
   autoplayBtnBg.label = "autoplayBtnBg";
-  const autoplayBtnText = createText(
+  autoplayBtnText = createText(
     autoplayBtnContainer,
     "AUTO\nPLAY",
     primaryTextStyle
@@ -159,21 +114,19 @@ export const initLandscapeUI = function () {
       yoyo: true,
       repeat: 1,
       ease: "power1.inOut",
+      onComplete: () => {
+        autoplayBtnContainer.alpha = 1;
+      },
     });
-    console.log("autoplay");
   });
 
   // max Bet Btn
   maxBetBtnContainer = createContainer(landscapeUIContainer);
   maxBetBtnContainer.label = "maxBetBtnContainer";
-  setTransform(maxBetBtnContainer, 230, 25, 1, 1);
+  setTransform(maxBetBtnContainer, 200, 35, 0.8, 0.8);
   let maxBetBtnBg = createSprite(maxBetBtnContainer, "max_bet_btn.png");
   maxBetBtnBg.label = "autoplayBtnBg";
-  const maxBetText = createText(
-    maxBetBtnContainer,
-    "MAX\nBET",
-    primaryTextStyle
-  );
+  maxBetText = createText(maxBetBtnContainer, "MAX\nBET", primaryTextStyle);
   maxBetText.label = "maxBetText";
   maxBetText.y = 18;
 
@@ -197,14 +150,18 @@ export const initLandscapeUI = function () {
       yoyo: true,
       repeat: 1,
       ease: "power1.inOut",
+      onComplete: () => {
+        maxBetBtnContainer.alpha = 1;
+      },
     });
-    console.log("max bet");
   });
 
   // Bet Container
   const betContainer = createContainer(landscapeUIContainer);
   betContainer.label = "betContainer";
   betContainer.position.x = -500;
+  betContainer.position.y = 10;
+  betContainer.scale.set(0.8);
 
   const betTitleContainer = createContainer(betContainer);
   betTitleContainer.label = "betTitleContainer";
@@ -216,8 +173,7 @@ export const initLandscapeUI = function () {
   const betValueContainer = createContainer(betContainer);
   betValueContainer.label = "betValueContainer";
   betValueContainer.position.y = 60;
-  // betValueContainer.position.x = 10;
-  betValueText = createText(betValueContainer, "100", primaryTextStyle);
+  betValueText = createText(betValueContainer, stake, primaryTextStyle);
   betValueText.label = "betTitleText";
 
   // invrease bet
@@ -243,8 +199,10 @@ export const initLandscapeUI = function () {
       yoyo: true,
       repeat: 1,
       ease: "power1.inOut",
+      onComplete: () => {
+        betValueIncreaseText.alpha = 1;
+      },
     });
-    console.log("increase bet");
   });
 
   // decrease bet
@@ -270,14 +228,18 @@ export const initLandscapeUI = function () {
       yoyo: true,
       repeat: 1,
       ease: "power1.inOut",
+      onComplete: () => {
+        betValueDecreaseText.alpha = 1;
+      },
     });
-    console.log("decrease bet");
   });
 
   // Coin Container
   const coinContainer = createContainer(landscapeUIContainer);
   coinContainer.label = "coinContainer";
   coinContainer.position.x = 500;
+  coinContainer.position.y = 10;
+  coinContainer.scale.set(0.8);
 
   const coinTitleContainer = createContainer(coinContainer);
   coinTitleContainer.label = "coinTitleContainer";

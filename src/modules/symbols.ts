@@ -17,7 +17,6 @@ export const slot = {
   RTP: "98,64%",
 };
 
-// Kreiranje simbola kao običnih objekata
 export type SlotSymbol = {
   name: string;
   texture: PIXI.Texture;
@@ -129,7 +128,16 @@ export async function addTextureToSymbols() {
 
 export const symbolChances = {
   //Chances = number of each symbol in draw
-  symbols: [symbol1, symbol2, symbol3, symbol4, symbol5, symbol6, symbol7, symbol8],
+  symbols: [
+    symbol1,
+    symbol2,
+    symbol3,
+    symbol4,
+    symbol5,
+    symbol6,
+    symbol7,
+    symbol8,
+  ],
   chances: [250, 250, 205, 125, 80, 67, 50, 33],
 
   numberToSymbol(nr: number) {

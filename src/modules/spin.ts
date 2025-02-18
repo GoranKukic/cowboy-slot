@@ -112,34 +112,3 @@ export function randomInt(min: number, max: number) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-// function RTPcalc(nrSpins: number) {
-//   let spins: number = 0;
-//   let hw: number = 0;
-//   let highestWin: string = "";
-//   let balance: number = 1000000;
-//   let bet: number = 10;
-//   for (let i = 1; i <= nrSpins; i++) {
-//     if (i % (nrSpins / 100) == 0) {
-//       console.clear();
-//       console.log(`${((i / nrSpins) * 100).toFixed(2)}%`);
-//     }
-//     let temp = new Spin(bet, false);
-//     balance = balance - bet;
-//     if (temp.totalWin > hw) {
-//       highestWin = `Highest win was ${
-//         temp.totalWin / bet
-//       }x at spin number ${i}.`;
-//       hw = temp.totalWin;
-//     }
-//     if (temp.totalWin > 0) {
-//       balance = balance + temp.totalWin;
-//     }
-//     spins++;
-//   }
-//   console.log(
-//     `Done ${spins} spins with bet ${bet}. \n${highestWin} \nBalance at end is ${balance}.\nThat means RTP is ${
-//       balance / 10000
-//     }%`
-//   );
-// }

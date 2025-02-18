@@ -39,7 +39,7 @@ export const initGame = async (
 
   loadingGunAnim();
   await loadAssets();
-  console.log("Assets loaded");
+  // console.log("Assets loaded");
   addTextureToSymbols();
   animateLoading = false;
 

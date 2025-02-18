@@ -86,7 +86,6 @@ export const createContainer = (
   } = {}
 ): PIXI.Container => {
   const container = new PIXI.Container();
-  // container.type = "Container";
   (container as any).type = "Container";
 
   // Apply the setTransform function to the container before adding it to the parent
@@ -173,9 +172,6 @@ export const createSprite = (
     sprite.destroy(true);
   };
 
-  // const globalTransform = getGlobalTransform(sprite);
-  // console.log(globalTransform); // You can use this as needed
-
   return sprite;
 };
 
@@ -199,6 +195,16 @@ export const secondaryTextStyle = new PIXI.TextStyle({
   dropShadow: true,
   align: "center",
   // dropShadowDistance: 2,
+});
+
+export const winingTextStyle = new PIXI.TextStyle({
+  fontFamily: "Durango Western Eroded",
+  fontSize: 130,
+  fontWeight: "normal",
+  fill: "#FFFFFF",
+  stroke: "#000000",
+  dropShadow: true,
+  align: "center",
 });
 
 export const createText = (
