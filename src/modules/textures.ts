@@ -5,6 +5,12 @@ import { initSlot } from "./slot";
 import { initLandscapeUI, landscapeUIContainer } from "./ui";
 import { setTransform } from "./pixiSetup";
 
+declare global {
+  interface Window {
+    __RATIO_SCALE__: number;
+  }
+}
+
 export const loadTextures = async (app: PIXI.Application): Promise<void> => {
   const mainContainer = createContainer(app.stage);
   mainContainer.label = "mainContainer";
@@ -55,12 +61,44 @@ const resizeTextures = () => {
   const mainContainer = window.__MAIN_CONTAINER__ as PIXI.Container;
   const slotContainer = window.__SLOT_CONTAINER__ as PIXI.Container;
 
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  const aspectRatio = w / h;
+  // Min and Max ratio
+  const maxAspectRatio = 2.8;
+  const minAspectRatio = 1 / maxAspectRatio;
+
+  // Adjusted width and height of screen
+  const adjustedWidth =
+    window.innerWidth / window.innerHeight > maxAspectRatio
+      ? window.innerHeight * maxAspectRatio
+      : window.innerWidth;
+  const adjustedHeight =
+    window.innerWidth / window.innerHeight < minAspectRatio
+      ? window.innerWidth / minAspectRatio
+      : window.innerHeight;
+
+  // Calculate aspect ratio
+  const aspectRatio = adjustedWidth / adjustedHeight;
   const desktopConstant = 1.77; // 16:9
 
-  // Scale and position background
+  // Ste global ratioScale
+  window.__RATIO_SCALE__ =
+    adjustedHeight > adjustedWidth
+      ? adjustedWidth / 1080
+      : adjustedHeight / 1080;
+
+  // Resize PIXI renderer to new dimensions
+  window.__PIXI_APP__.renderer.resize(adjustedWidth, adjustedHeight);
+
+  // Debug log
+  // console.log({
+  //   adjustedWidth,
+  //   adjustedHeight,
+  //   aspectRatio,
+  //   rendererWidth: window.__PIXI_APP__.screen.width,
+  //   rendererHeight: window.__PIXI_APP__.screen.height,
+  //   ratioScale: window.__RATIO_SCALE__,
+  // });
+
+  // Sacling and positioning of background
   const background = mainContainer.getChildByName(
     "backgroundContainer"
   ) as PIXI.Container;
@@ -70,66 +108,72 @@ const resizeTextures = () => {
     ) as PIXI.Sprite;
     if (bgSprite) {
       const scaleFactor = Math.max(
-        w / bgSprite.texture.width,
-        h / bgSprite.texture.height
+        adjustedWidth / bgSprite.texture.width,
+        adjustedHeight / bgSprite.texture.height
       );
-      setTransform(bgSprite, w / 2, h / 2, scaleFactor, scaleFactor);
+      setTransform(
+        bgSprite,
+        adjustedWidth / 2,
+        adjustedHeight / 2,
+        scaleFactor,
+        scaleFactor
+      );
     }
   }
 
-  // Scale and position Slot & UI based on screen aspect ratio
+  // Sacling and positioning Slot and UI containers
   if (aspectRatio >= desktopConstant) {
-    // console.log(`${aspectRatio} >= desktopConstant (1.77)`);
+    console.log(`${aspectRatio} >= desktopConstant (1.77)`);
 
     setTransform(
       slotContainer,
-      window.__PIXI_APP__.screen.width / 2,
-      window.__PIXI_APP__.screen.height / 2.4,
-      0.48 * aspectRatio,
-      0.48 * aspectRatio
+      adjustedWidth / 2,
+      adjustedHeight / 2.4,
+      1.1 * window.__RATIO_SCALE__,
+      1.1 * window.__RATIO_SCALE__
     );
 
     setTransform(
       landscapeUIContainer,
-      window.__PIXI_APP__.screen.width / 2,
-      window.__PIXI_APP__.screen.height - 94,
-      1,
-      1
+      adjustedWidth / 2,
+      adjustedHeight - 110 * window.__RATIO_SCALE__,
+      1.2 * window.__RATIO_SCALE__,
+      1.2 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 0.6) {
-    // console.log(`${aspectRatio}  < 0.6`);
+    console.log(`${aspectRatio} < 0.6`);
 
     setTransform(
       slotContainer,
-      window.__PIXI_APP__.screen.width / 2,
-      window.__PIXI_APP__.screen.height / 2.4,
-      0.8 * aspectRatio,
-      0.8 * aspectRatio
+      adjustedWidth / 2,
+      adjustedHeight / 2.4,
+      0.85 * window.__RATIO_SCALE__,
+      0.85 * window.__RATIO_SCALE__
     );
 
-    const scaledUIHeight = 140 * aspectRatio;
+    const scaledUIHeight = 160 * window.__RATIO_SCALE__;
     const scaledOffsetY = scaledUIHeight * 0.5;
-    const positionY = window.__PIXI_APP__.screen.height - scaledOffsetY;
+    const positionY = adjustedHeight - scaledOffsetY;
 
     setTransform(
       landscapeUIContainer,
-      window.__PIXI_APP__.screen.width / 2,
+      adjustedWidth / 2,
       positionY,
-      0.7 * aspectRatio,
-      0.7 * aspectRatio
+      0.85 * window.__RATIO_SCALE__,
+      0.85 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.1) {
-    // console.log(`${aspectRatio}  < 1.1`);
+    console.log(`${aspectRatio}  < 1.1`);
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.78 * aspectRatio,
-      0.78 * aspectRatio
+      0.9 * window.__RATIO_SCALE__,
+      0.9 * window.__RATIO_SCALE__
     );
 
-    const scaledUIHeight = 148 * aspectRatio;
+    const scaledUIHeight = 170 * window.__RATIO_SCALE__;
     const scaledOffsetY = scaledUIHeight * 0.5;
     const positionY = window.__PIXI_APP__.screen.height - scaledOffsetY;
 
@@ -137,29 +181,21 @@ const resizeTextures = () => {
       landscapeUIContainer,
       window.__PIXI_APP__.screen.width / 2,
       positionY,
-      0.78 * aspectRatio,
-      0.78 * aspectRatio
+      0.9 * window.__RATIO_SCALE__,
+      0.9 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.2) {
-    // console.log(`${aspectRatio}  < 1.2`);
+    console.log(`${aspectRatio}  < 1.2`);
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.8 * aspectRatio,
-      0.8 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
 
-    setTransform(
-      slotContainer,
-      window.__PIXI_APP__.screen.width / 2,
-      window.__PIXI_APP__.screen.height / 2.4,
-      0.78 * aspectRatio,
-      0.78 * aspectRatio
-    );
-
-    const scaledUIHeight = 135 * aspectRatio;
+    const scaledUIHeight = 190 * window.__RATIO_SCALE__;
     const scaledOffsetY = scaledUIHeight * 0.5;
     const positionY = window.__PIXI_APP__.screen.height - scaledOffsetY;
 
@@ -167,29 +203,29 @@ const resizeTextures = () => {
       landscapeUIContainer,
       window.__PIXI_APP__.screen.width / 2,
       positionY,
-      0.73 * aspectRatio,
-      0.73 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.3) {
-    // console.log(`${aspectRatio}  < 1.3`);
+    console.log(`${aspectRatio}  < 1.3`);
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.7 * aspectRatio,
-      0.7 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.78 * aspectRatio,
-      0.78 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
 
-    const scaledUIHeight = 130 * aspectRatio;
+    const scaledUIHeight = 190 * window.__RATIO_SCALE__;
     const scaledOffsetY = scaledUIHeight * 0.5;
     const positionY = window.__PIXI_APP__.screen.height - scaledOffsetY;
 
@@ -197,21 +233,21 @@ const resizeTextures = () => {
       landscapeUIContainer,
       window.__PIXI_APP__.screen.width / 2,
       positionY,
-      0.7 * aspectRatio,
-      0.7 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.4) {
-    // console.log(`${aspectRatio}  < 1.4`);
+    console.log(`${aspectRatio}  < 1.4`);
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.7 * aspectRatio,
-      0.7 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
 
-    const scaledUIHeight = 130 * aspectRatio;
+    const scaledUIHeight = 190 * window.__RATIO_SCALE__;
     const scaledOffsetY = scaledUIHeight * 0.5;
     const positionY = window.__PIXI_APP__.screen.height - scaledOffsetY;
 
@@ -219,18 +255,18 @@ const resizeTextures = () => {
       landscapeUIContainer,
       window.__PIXI_APP__.screen.width / 2,
       positionY,
-      0.7 * aspectRatio,
-      0.7 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.55) {
-    // console.log(`${aspectRatio} < 1.55`);
+    console.log(`${aspectRatio} < 1.55`);
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.6 * aspectRatio,
-      0.6 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
 
     const scaledUIHeight = 110 * aspectRatio;
@@ -241,18 +277,18 @@ const resizeTextures = () => {
       landscapeUIContainer,
       window.__PIXI_APP__.screen.width / 2,
       positionY,
-      0.6 * aspectRatio,
-      0.6 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
   } else {
-    // console.log(`${aspectRatio} > 1.55`);
+    console.log(`${aspectRatio} > 1.55`);
 
     setTransform(
       slotContainer,
       window.__PIXI_APP__.screen.width / 2,
       window.__PIXI_APP__.screen.height / 2.4,
-      0.6 * aspectRatio,
-      0.6 * aspectRatio
+      1 * window.__RATIO_SCALE__,
+      1 * window.__RATIO_SCALE__
     );
 
     setTransform(
