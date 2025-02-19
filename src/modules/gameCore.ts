@@ -20,7 +20,8 @@ export const initGame = async (
   await app.init({
     resizeTo: window,
     background: "#000",
-    resolution: window.devicePixelRatio,
+    // resolution: window.devicePixelRatio,
+    resolution: 1,
     autoDensity: true,
     clearBeforeRender: true,
   });
