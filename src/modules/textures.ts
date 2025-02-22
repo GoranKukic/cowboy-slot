@@ -2,7 +2,7 @@
 import * as PIXI from "pixi.js";
 import { createContainer } from "./pixiSetup";
 import { initSlot } from "./slot";
-import { initLandscapeUI, landscapeUIContainer } from "./ui";
+import { initLandscapeUI, landscapeUIContainer, initPortraitUI } from "./ui";
 import { setTransform } from "./pixiSetup";
 
 declare global {
@@ -61,7 +61,6 @@ const resizeTextures = () => {
   const mainContainer = window.__MAIN_CONTAINER__ as PIXI.Container;
   const slotContainer = window.__SLOT_CONTAINER__ as PIXI.Container;
 
-  // Min and Max ratio
   const maxAspectRatio = 2.8;
   const minAspectRatio = 1 / maxAspectRatio;
 
@@ -88,15 +87,10 @@ const resizeTextures = () => {
   // Resize PIXI renderer to new dimensions
   window.__PIXI_APP__.renderer.resize(adjustedWidth, adjustedHeight);
 
-  // Debug log
-  // console.log({
-  //   adjustedWidth,
-  //   adjustedHeight,
-  //   aspectRatio,
-  //   rendererWidth: window.__PIXI_APP__.screen.width,
-  //   rendererHeight: window.__PIXI_APP__.screen.height,
-  //   ratioScale: window.__RATIO_SCALE__,
-  // });
+  // Reset Portrait UI
+  if (aspectRatio > 0.6) {
+    initPortraitUI(false);
+  }
 
   // Sacling and positioning of background
   const background = mainContainer.getChildByName(
@@ -123,7 +117,7 @@ const resizeTextures = () => {
 
   // Sacling and positioning Slot and UI containers
   if (aspectRatio >= desktopConstant) {
-    console.log(`${aspectRatio} >= desktopConstant (1.77)`);
+    // console.log(`${aspectRatio} >= desktopConstant (1.77)`);
 
     setTransform(
       slotContainer,
@@ -141,14 +135,14 @@ const resizeTextures = () => {
       1.2 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 0.6) {
-    console.log(`${aspectRatio} < 0.6`);
+    // console.log(`${aspectRatio} < 0.6`);
 
     setTransform(
       slotContainer,
       adjustedWidth / 2,
       adjustedHeight / 2.4,
-      0.85 * window.__RATIO_SCALE__,
-      0.85 * window.__RATIO_SCALE__
+      0.92 * window.__RATIO_SCALE__,
+      0.92 * window.__RATIO_SCALE__
     );
 
     const scaledUIHeight = 160 * window.__RATIO_SCALE__;
@@ -162,8 +156,10 @@ const resizeTextures = () => {
       0.85 * window.__RATIO_SCALE__,
       0.85 * window.__RATIO_SCALE__
     );
+
+    initPortraitUI(true);
   } else if (aspectRatio < 1.1) {
-    console.log(`${aspectRatio}  < 1.1`);
+    // console.log(`${aspectRatio}  < 1.1`);
 
     setTransform(
       slotContainer,
@@ -185,7 +181,7 @@ const resizeTextures = () => {
       0.9 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.2) {
-    console.log(`${aspectRatio}  < 1.2`);
+    // console.log(`${aspectRatio}  < 1.2`);
 
     setTransform(
       slotContainer,
@@ -207,7 +203,7 @@ const resizeTextures = () => {
       1 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.3) {
-    console.log(`${aspectRatio}  < 1.3`);
+    // console.log(`${aspectRatio}  < 1.3`);
 
     setTransform(
       slotContainer,
@@ -237,7 +233,7 @@ const resizeTextures = () => {
       1 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.4) {
-    console.log(`${aspectRatio}  < 1.4`);
+    // console.log(`${aspectRatio}  < 1.4`);
 
     setTransform(
       slotContainer,
@@ -259,7 +255,7 @@ const resizeTextures = () => {
       1 * window.__RATIO_SCALE__
     );
   } else if (aspectRatio < 1.55) {
-    console.log(`${aspectRatio} < 1.55`);
+    // console.log(`${aspectRatio} < 1.55`);
 
     setTransform(
       slotContainer,
@@ -281,7 +277,7 @@ const resizeTextures = () => {
       1 * window.__RATIO_SCALE__
     );
   } else {
-    console.log(`${aspectRatio} > 1.55`);
+    // console.log(`${aspectRatio} > 1.55`);
 
     setTransform(
       slotContainer,

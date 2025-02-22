@@ -4,9 +4,6 @@ import * as PIXI from "pixi.js";
 export const slot = {
   reels: 5,
   rows: 3,
-  //0 - 0 - 0 - 0 - 0
-  //1 - 1 - 1 - 1 - 1
-  //2 - 2 - 2 - 2 - 2
   paylines: [
     [0, 0, 0, 0, 0],
     [1, 1, 1, 1, 1],
@@ -14,7 +11,7 @@ export const slot = {
     [0, 1, 2, 1, 0],
     [2, 1, 0, 1, 2],
   ],
-  RTP: "98,64%",
+  RTP: "95.46%", // RTP tested on 100.000.000 spins
 };
 
 export type SlotSymbol = {
@@ -39,15 +36,15 @@ const symPlaceholderTx = PIXI.Texture.WHITE;
 
 // Snake
 export const symbol1 = createSlotSymbol("symbol1", symPlaceholderTx, [
-  [],
-  [],
-  [2, 0.5],
-  [3, 1],
-  [4, 2.5],
-  [5, 5],
+  [], // 0 symbols - no payout
+  [], // 1 symbol - no payout
+  [2, 0.5], // 2 symbols - payout: stake x 0.5
+  [3, 1], // 3 symbols - payout: stake x 1
+  [4, 2.5], // 4 symbols - payout: stake x 2.5
+  [5, 5], // 5 symbols - payout: stake x 5
 ]);
 
-// Bag of gold
+// Barrels
 const symbol2 = createSlotSymbol("symbol2", symPlaceholderTx, [
   [],
   [],
@@ -57,7 +54,7 @@ const symbol2 = createSlotSymbol("symbol2", symPlaceholderTx, [
   [5, 5],
 ]);
 
-// Barrels
+// Male
 const symbol3 = createSlotSymbol("symbol3", symPlaceholderTx, [
   [],
   [],
@@ -67,7 +64,7 @@ const symbol3 = createSlotSymbol("symbol3", symPlaceholderTx, [
   [5, 10],
 ]);
 
-// Boots
+// Female
 const symbol4 = createSlotSymbol("symbol4", symPlaceholderTx, [
   [],
   [],
@@ -87,7 +84,7 @@ const symbol5 = createSlotSymbol("symbol5", symPlaceholderTx, [
   [5, 65],
 ]);
 
-// Pile of gold
+// Trolley
 const symbol6 = createSlotSymbol("symbol6", symPlaceholderTx, [
   [],
   [],
@@ -97,33 +94,46 @@ const symbol6 = createSlotSymbol("symbol6", symPlaceholderTx, [
   [5, 125],
 ]);
 
+// Gas Lamp
 const symbol7 = createSlotSymbol("symbol7", symPlaceholderTx, [
-  [], // 1 simbol - nema isplate
-  [], // 2 simbola - nema isplate
-  [3, 3], // 3 simbola - isplata 3x uloga
-  [4, 7], // 4 simbola - isplata 7x uloga
-  [5, 20], // 5 simbola - isplata 20x uloga
+  [],
+  [],
+  [],
+  [3, 3],
+  [4, 7],
+  [5, 20],
+]);
+
+// Pile of gold
+const symbol8 = createSlotSymbol("symbol8", symPlaceholderTx, [
+  [],
+  [],
+  [],
+  [3, 5],
+  [4, 15],
+  [5, 30],
 ]);
 
 // Wild
-export const symbol8 = createSlotSymbol("symbol8", symPlaceholderTx, [
+export const symbol9 = createSlotSymbol("symbol9", symPlaceholderTx, [
   [],
   [],
   [],
-  [],
-  [],
-  [5, 500],
+  [3, 10],
+  [4, 25],
+  [5, 75],
 ]);
 
 export async function addTextureToSymbols() {
-  symbol1.texture = PIXI.Texture.from("snake.png");
-  symbol2.texture = PIXI.Texture.from("trolley.png");
-  symbol3.texture = PIXI.Texture.from("barrels.png");
-  symbol4.texture = PIXI.Texture.from("boots.png");
-  symbol5.texture = PIXI.Texture.from("dynamite_crate.png");
-  symbol6.texture = PIXI.Texture.from("pile_of_gold.png");
-  symbol7.texture = PIXI.Texture.from("gas_lamp.png");
-  symbol8.texture = PIXI.Texture.from("wild.png");
+  symbol1.texture = PIXI.Texture.from("snake2.png");
+  symbol2.texture = PIXI.Texture.from("barrels.png");
+  symbol3.texture = PIXI.Texture.from("male_cut_transp3.png");
+  symbol4.texture = PIXI.Texture.from("female_cut_transp3.png");
+  symbol5.texture = PIXI.Texture.from("dynamite_crate2.png");
+  symbol6.texture = PIXI.Texture.from("gas_lamp.png");
+  symbol7.texture = PIXI.Texture.from("pile_of_gold.png");
+  symbol8.texture = PIXI.Texture.from("trolley.png");
+  symbol9.texture = PIXI.Texture.from("wild3.png");
 }
 
 export const symbolChances = {
@@ -137,8 +147,9 @@ export const symbolChances = {
     symbol6,
     symbol7,
     symbol8,
+    symbol9,
   ],
-  chances: [250, 250, 205, 125, 80, 67, 50, 33],
+  chances: [330, 290, 250, 180, 140, 110, 85, 60, 60],
 
   numberToSymbol(nr: number) {
     let temp: number = 1;

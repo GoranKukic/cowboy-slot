@@ -23,6 +23,9 @@ export let maxBetText: PIXI.Text;
 export let autoplayBtnContainer: PIXI.Container;
 export let autoplayBtnText: PIXI.Text;
 export let landscapeUIContainer: PIXI.Container;
+let landscapeUIBase1Sprite: PIXI.Sprite;
+let coinContainer: PIXI.Container;
+let betContainer: PIXI.Container;
 
 export const initLandscapeUI = function () {
   landscapeUIContainer = createContainer(window.__MAIN_CONTAINER__);
@@ -36,10 +39,7 @@ export const initLandscapeUI = function () {
   landscapeUIBase2Sprite.label = "landscapeUIBase2Sprite";
   landscapeUIBase2Sprite.y = -436;
 
-  const landscapeUIBase1Sprite = createSprite(
-    landscapeUIContainer,
-    "base_ui_1.png"
-  );
+  landscapeUIBase1Sprite = createSprite(landscapeUIContainer, "base_ui_1.png");
   landscapeUIBase1Sprite.label = "landscapeUIBase1Sprite";
   landscapeUIBase1Sprite.y = 60;
   landscapeUIBase1Sprite.scale.y = 0.8;
@@ -157,7 +157,7 @@ export const initLandscapeUI = function () {
   });
 
   // Bet Container
-  const betContainer = createContainer(landscapeUIContainer);
+  betContainer = createContainer(landscapeUIContainer);
   betContainer.label = "betContainer";
   betContainer.position.x = -500;
   betContainer.position.y = 10;
@@ -170,7 +170,7 @@ export const initLandscapeUI = function () {
   betTitleText.label = "betTitleText";
   betTitleText.position.x = 5;
 
-  const betValueContainer = createContainer(betContainer);
+  let betValueContainer = createContainer(betContainer);
   betValueContainer.label = "betValueContainer";
   betValueContainer.position.y = 60;
   betValueText = createText(betValueContainer, stake, primaryTextStyle);
@@ -235,7 +235,7 @@ export const initLandscapeUI = function () {
   });
 
   // Coin Container
-  const coinContainer = createContainer(landscapeUIContainer);
+  coinContainer = createContainer(landscapeUIContainer);
   coinContainer.label = "coinContainer";
   coinContainer.position.x = 500;
   coinContainer.position.y = 10;
@@ -257,3 +257,39 @@ export const initLandscapeUI = function () {
   coinValueText = createText(coinValueContainer, bal, primaryTextStyle);
   coinValueText.label = "coinValueText";
 };
+
+export function initPortraitUI(status: boolean) {
+  if (status === true) {
+    setTransform(spinBtnContainer, 0, -280, 1.4, 1.4);
+    setTransform(maxBetBtnContainer, 300, -260, 1.4, 1.4);
+    setTransform(autoplayBtnContainer, -300, -260, 1.4, 1.4);
+    landscapeUIBase1Sprite.scale.y = 3;
+    landscapeUIBase1Sprite.scale.x = 0.7;
+    setTransform(coinContainer, 0, -85, 1.4, 1.4);
+    setTransform(betContainer, -440, -85, 1.4, 1.4);
+
+    spinBtnContainer.on("pointerover", () => {
+      spinBtnContainer.scale.set(1.38);
+    });
+
+    spinBtnContainer.on("pointerout", () => {
+      spinBtnContainer.scale.set(1.4);
+    });
+  } else {
+    setTransform(spinBtnContainer, 0, 10, 0.8, 0.8);
+    setTransform(maxBetBtnContainer, 200, 35, 0.8, 0.8);
+    setTransform(autoplayBtnContainer, -200, 35, 0.8, 0.8);
+    landscapeUIBase1Sprite.scale.y = 0.8;
+    landscapeUIBase1Sprite.scale.x = 1;
+    setTransform(coinContainer, 500, 10, 0.8, 0.8);
+    setTransform(betContainer, -500, 10, 0.8, 0.8);
+
+    spinBtnContainer.on("pointerover", () => {
+      spinBtnContainer.scale.set(0.78);
+    });
+
+    spinBtnContainer.on("pointerout", () => {
+      spinBtnContainer.scale.set(0.8);
+    });
+  }
+}

@@ -37,15 +37,13 @@ let reels: PIXI.Container[];
 let sp: Spin;
 let tWin: number = 0;
 let showLines: PIXI.Ticker;
-
-// Creating reel containers
-const reelWidth: number = 226;
-let reelHeight: number = 625;
-const reelSpacing = 25;
-const initialX: number = -550;
-const initialY: number = -318;
+const reelWidth: number = 224.1;
+let reelHeight: number = 630;
+const initialX: number = -560.5;
+const initialY: number = -315;
 let winningLineText: PIXI.Text;
 let winningAmountText: PIXI.Text;
+let isAutoPlay: boolean = false;
 
 // Filters
 const desaturateEffect = new PIXI.ColorMatrixFilter();
@@ -55,29 +53,25 @@ greenTintEffect.tint(0x71b443);
 const grayTintEffect = new PIXI.ColorMatrixFilter();
 grayTintEffect.tint(0x808080);
 
-let isAutoPlay: boolean = false;
-
 // States of spin
 enum States {
-  idle, // When nothing is happening
-  spinning, // When reels are spinning
-  resultWaiting, // When we are waiting for result
-  resultDone, // When result is done and we are
-  stopping, // When we want to stop spinning
+  idle, // Nothing is happening
+  spinning, // Reels are spinning
+  resultWaiting, // Witing for result
+  resultDone, // Result is done
+  stopping, // We want to stop spinning
 }
 let state: States = States.idle;
 
 export const initSlot = function () {
-  // Creating new spin
   let s = createSpin(10, false);
-  let spritesNow: PIXI.Sprite[][] = [];
+  let spritesNow: PIXI.Container[][] = [];
 
   const slotContainer: PIXI.Container = createContainer(
     window.__MAIN_CONTAINER__
   );
   slotContainer.label = "slotContainer";
   window.__SLOT_CONTAINER__ = slotContainer;
-
   setTransform(
     slotContainer,
     window.__PIXI_APP__.screen.width / 2,
@@ -95,13 +89,11 @@ export const initSlot = function () {
     "slot_base.png"
   );
   slotBgSprite.label = "slotBgSprite";
-
   const slotBgShadows: PIXI.Sprite = createSprite(
     slotContainer,
     "slot_lighten.png"
   );
   slotBgShadows.label = "slotBgShadows";
-
   const slotBgLines: PIXI.Sprite = createSprite(
     slotContainer,
     "slot_lines.png"
@@ -122,7 +114,7 @@ export const initSlot = function () {
 
   reels = [reel1, reel2, reel3, reel4, reel5];
 
-  symbolWidth = reelHeight / 3;
+  symbolWidth = reelWidth;
 
   reels.forEach((reel, index) => {
     reel.position.y = initialY;
@@ -132,24 +124,20 @@ export const initSlot = function () {
   // Create Symbols & Mask
   for (let i = -1; i < 4; i++) {
     spritesNow[i + 1] = [];
+
     // Mask
     const mask = new PIXI.Graphics()
-      .rect(
-        initialX + (i + 1) * reelWidth,
-        initialY,
-        199 + reelSpacing,
-        reelHeight
-      )
+      .rect(initialX + (i + 1) * reelWidth, initialY, reelWidth, reelHeight)
       .fill(0xff0000);
     mask.label = `mask ${i + 2}`;
     slotContainer.addChild(mask);
 
-    // Symbols
+    // Symbols for start screen
     for (let j in reels) {
       // Adding first and last symbols to reels (1, 5)
       if (i == -1 || i == 3) {
         let sprite = PIXI.Sprite.from(
-          symbolChances.symbols[randomInt(0, 6)].texture
+          symbolChances.symbols[randomInt(0, 8)].texture
         );
         sprite.label = "symbolSprite";
         sprite.height = sprite.width = symbolWidth;
@@ -165,18 +153,51 @@ export const initSlot = function () {
       }
       // Adding central symbols to reels (2, 3, 4)
       else {
-        let sprite = PIXI.Sprite.from(s.spinResult[i][j].texture);
-        sprite.label = "symbolSprite2";
-        sprite.height = sprite.width = symbolWidth;
+        const symbolContainer = new PIXI.Container();
+        symbolContainer.label = "symbolContainer";
+
+        symbolContainer.width = reelWidth;
+        symbolContainer.height = reelHeight / 3;
+
+        const symbolTranspBg: PIXI.Sprite = createSprite(
+          symbolContainer,
+          "tile.png"
+        );
+        symbolTranspBg.label = "symbolTranspBg";
+        symbolTranspBg.width = reelWidth;
+        symbolTranspBg.height = reelHeight / 3;
+        symbolTranspBg.anchor.set(0.5);
+        symbolTranspBg.x = symbolContainer.width / 2;
+        symbolTranspBg.y = symbolContainer.height / 2;
+        symbolTranspBg.alpha = 0;
+
+        const texture = s.spinResult[i][j].texture as PIXI.Texture;
+        let symbolSprite = new PIXI.Sprite(texture);
+        symbolSprite.label = "symbolSprite2";
+
+        const originalWidth = texture.width;
+        const originalHeight = texture.height;
+
+        const scaleX = symbolContainer.width / originalWidth;
+        const scaleY = symbolContainer.height / originalHeight;
+        const scale = Math.min(scaleX, scaleY);
+
+        symbolSprite.width = originalWidth * scale;
+        symbolSprite.height = originalHeight * scale;
+        symbolSprite.x = (symbolContainer.width - symbolSprite.width) / 2;
+        symbolSprite.y = (symbolContainer.height - symbolSprite.height) / 2;
+
+        symbolContainer.addChild(symbolTranspBg);
+        symbolContainer.addChild(symbolSprite);
 
         if (window.innerWidth > window.innerHeight) {
-          sprite.position.y = symbolWidth * i;
+          symbolContainer.position.y = (reelHeight / 3) * i;
         } else {
-          sprite.position.y = startingY + symbolWidth * i;
+          symbolContainer.position.y = startingY + (reelHeight / 3) * i;
         }
 
-        spritesNow[i + 1][j] = sprite;
-        reels[j].addChild(sprite);
+        spritesNow[i + 1][j] = symbolContainer;
+        reels[j].addChild(symbolContainer);
       }
     }
     // Mask first and last symbol
@@ -204,9 +225,6 @@ export const initSlot = function () {
 
   // Increase Bet
   betValueIncreaseText.on("pointerdown", function () {
-    console.log("increase bet");
-
-    betValueIncreaseText.filters = [];
     betValueDecreaseText.filters = [];
 
     if (betValueText.text == bets[bets.length - 1].toString()) {
@@ -216,7 +234,7 @@ export const initSlot = function () {
       let temp2: number = bets[temp + 1];
       betValueText.text = temp2.toString();
       stake = temp2;
-      if (bets.indexOf(temp2) == bets.length - 1) {
+      if (temp2 == bets[bets.length - 1]) {
         betValueIncreaseText.filters = [grayTintEffect];
         maxBetText.filters = [greenTintEffect];
       }
@@ -298,6 +316,7 @@ function triggerSpinAction() {
     reels.forEach((reel) => {
       reel.children.forEach((ch) => {
         ch.filters = [];
+        toggleGoldTile(ch, false);
       });
     });
     showLines.stop();
@@ -340,9 +359,7 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
   }
 
   let spinDone: boolean = false;
-
   let addNext = Math.round(symbolWidth / speed);
-
   let ticker = new PIXI.Ticker();
   let sR = [...res.spinResult];
 
@@ -350,28 +367,34 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
   blurReel.strengthY = speed / 4;
   blurReel.strengthX = 0;
 
-  // Function that adds symbol at top
+  // Adding symbol at top of reel
   function addSymbolAtTop() {
-    let temp = randomInt(0, 6);
+    let temp = randomInt(0, 8);
+    let symbolSprite = PIXI.Sprite.from(symbolChances.symbols[temp].texture);
+    symbolSprite.width = reelWidth - 5;
+    symbolSprite.height = reelHeight / 3 - 5;
 
-    let sprite = PIXI.Sprite.from(symbolChances.symbols[temp].texture);
-    sprite.height = sprite.width = symbolWidth;
+    const symbolContainer = new PIXI.Container();
+    symbolContainer.label = "symbolContainer";
+    symbolContainer.width = reelWidth;
+    symbolContainer.height = reelHeight / 3;
+    symbolContainer.addChild(symbolSprite);
 
     reel.removeChildAt(reel.children.length - 1);
 
     for (let m = reel.children.length - 1; m <= 0; m--) {
       reel.setChildIndex(reel.children[m], m + 1);
     }
-    reel.addChildAt(sprite, 0).position.y = 0 - symbolWidth;
+    reel.addChildAt(symbolContainer, 0).position.y = 0 - reelHeight / 3;
   }
 
-  // Function to fix position of symbols
+  // Fix position of result symbols
   function fixPosition() {
     for (let p = 0; p < reel.children.length; p++) {
       if (window.innerWidth > window.innerHeight) {
-        reel.children[p].position.y = symbolWidth * (p - 1);
+        reel.children[p].position.y = (reelHeight / 3) * (p - 1);
       } else {
-        reel.children[p].position.y = startingY + symbolWidth * (p - 1);
+        reel.children[p].position.y = startingY + (reelHeight / 3) * (p - 1);
       }
     }
   }
@@ -384,17 +407,57 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
     if (it % addNext === 0 && it > 30) {
       if (it >= maxIt) {
         if (sR.length != 0) {
-          let sprite = PIXI.Sprite.from(sR[sR.length - 1][reelNumber].texture);
-          sprite.height = sprite.width = symbolWidth;
+          const symbolContainer = new PIXI.Container();
+          symbolContainer.label = "symbolContainer";
+          symbolContainer.width = reelWidth;
+          symbolContainer.height = reelHeight / 3;
 
+          const symbolGoldTile = PIXI.Sprite.from("gold_tile.png");
+          symbolGoldTile.label = "symbolGoldTile";
+          symbolGoldTile.width = reelWidth - 5;
+          symbolGoldTile.height = reelHeight / 3 - 5;
+          symbolGoldTile.anchor.set(0.5);
+          symbolGoldTile.x = reelWidth / 2;
+          symbolGoldTile.y = reelHeight / 3 / 2;
+          symbolGoldTile.visible = false;
+
+          const texture = sR[sR.length - 1][reelNumber].texture as PIXI.Texture;
+          const symbolSprite = new PIXI.Sprite(texture);
+          symbolSprite.label = "symbolSprite";
+
+          const originalWidth = texture.width;
+          const originalHeight = texture.height;
+
+          const targetWidth = reelWidth - 5;
+          const targetHeight = reelHeight / 3 - 5;
+
+          const scaleX = targetWidth / originalWidth;
+          const scaleY = targetHeight / originalHeight;
+          const scale = Math.min(scaleX, scaleY);
+
+          symbolSprite.width = originalWidth * scale;
+          symbolSprite.height = originalHeight * scale;
+          symbolSprite.anchor.set(0.5);
+          symbolSprite.x = reelWidth / 2;
+          symbolSprite.y = 210 / 2;
+
+          symbolContainer.addChild(symbolGoldTile);
+          symbolContainer.addChild(symbolSprite);
+
+          // Removing last symbol form array and reel
           sR.splice(sR.length - 1, 1);
-          reel.removeChildAt(reel.children.length - 1);
-
-          for (let m = reel.children.length - 1; m <= 0; m--) {
-            reel.setChildIndex(reel.children[m], m + 1);
+          if (reel.children.length > 0) {
+            reel.removeChildAt(reel.children.length - 1);
           }
 
-          reel.addChildAt(sprite, 0).position.y = 0 - symbolWidth;
+          // Moving all symbols to down
+          for (let m = reel.children.length - 1; m >= 0; m--) {
+            reel.children[m].position.y += reelHeight / 3;
+          }
+
+          // Adding new container at top of column
+          symbolContainer.position.y = -(reelHeight / 3);
+          reel.addChildAt(symbolContainer, 0);
         } else {
           reel.filters = [];
 
@@ -472,10 +535,13 @@ function showResults(result: Spin) {
       inner: for (let j = start; j < 5; j++) {
         if (result.symbolsOnWinning[j] != null) {
           for (let q = 0; q < result.symbolsOnWinning[j]; q++) {
-            symbolsToHighlight[i].push(
-              reels[q].children[slot.paylines[j][q] + 1]
-            );
+            let symbolContainer = reels[q].children[
+              slot.paylines[j][q] + 1
+            ] as PIXI.Container;
+            symbolsToHighlight[i].push(symbolContainer);
+            toggleGoldTile(symbolContainer, true);
           }
+
           winningMessage.push(`Line ${j + 1} pays ${result.winningLines[j]}`);
           start = j + 1;
           isAutoPlay = !isAutoPlay;
@@ -534,8 +600,10 @@ function showResults(result: Spin) {
         reel.children.forEach((ch) => {
           if (symbolsToHighlight.some((line) => line.includes(ch))) {
             ch.filters = [];
+            toggleGoldTile(ch, true);
           } else {
             ch.filters = [desaturateEffect];
+            toggleGoldTile(ch, false);
           }
         });
       });
@@ -548,8 +616,10 @@ function showResults(result: Spin) {
           reel.children.forEach((ch) => {
             if (ch == symbolsToHighlight[ln][reels.indexOf(reel)]) {
               ch.filters = [];
+              toggleGoldTile(ch, true);
             } else {
               ch.filters = [desaturateEffect];
+              toggleGoldTile(ch, false);
             }
           });
         });
@@ -578,4 +648,13 @@ function changeBalance(changeBy: number) {
   }
 
   coinValueText.text = bal;
+}
+
+function toggleGoldTile(container: PIXI.Container, shouldShow: boolean) {
+  const goldTile = container.children.find(
+    (child) => child.label === "symbolGoldTile"
+  );
+  if (goldTile) {
+    goldTile.visible = shouldShow;
+  }
 }

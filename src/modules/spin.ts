@@ -1,6 +1,6 @@
 // spin.ts
 import type { SlotSymbol } from "./symbols";
-import { slot, symbol1, symbol8, symbolChances, countSymbols } from "./symbols";
+import { slot, symbol1, symbol9, symbolChances, countSymbols } from "./symbols";
 
 export interface Spin {
   spinResult: SlotSymbol[][];
@@ -60,14 +60,14 @@ export const createSpin = (bet: number, logs?: boolean): Spin => {
   }
 
   function winOnLine(line: SlotSymbol[], paylineNumber: number) {
-    let noWilds = line.filter((item) => item !== symbol8);
+    let noWilds = line.filter((item) => item !== symbol9);
     if (noWilds.length === 0) {
-      winningLines[paylineNumber] = bet * symbol8.payouts[5][1];
+      winningLines[paylineNumber] = bet * symbol9.payouts[5][1];
       symbolsOnWinning[paylineNumber] = 5;
     } else {
       let result: SlotSymbol[] = [];
       for (let el of line) {
-        if (el !== noWilds[0] && el !== symbol8) break;
+        if (el !== noWilds[0] && el !== symbol9) break;
         result.push(el);
       }
       if (noWilds[0] === symbol1 && result.length >= 2) {
@@ -111,4 +111,74 @@ export function randomInt(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// export function RTPcalc(nrSpins: number) {
+//   let spins: number = 0;
+//   let hw: number = 0;
+//   let highestWin: string = "";
+//   let balance: number = 1000000;
+//   let bet: number = 10;
+//   for (let i = 1; i <= nrSpins; i++) {
+//     if (i % (nrSpins / 100) == 0) {
+//       // console.clear();
+//       console.log(`${((i / nrSpins) * 100).toFixed(2)}%`);
+//     }
+//     let temp = createSpin(bet, false);
+//     balance = balance - bet;
+//     if (temp.totalWin > hw) {
+//       highestWin = `Highest win was ${
+//         temp.totalWin / bet
+//       }x at spin number ${i}.`;
+//       hw = temp.totalWin;
+//     }
+//     if (temp.totalWin > 0) {
+//       balance = balance + temp.totalWin;
+//     }
+//     spins++;
+//   }
+//   console.log(
+//     `Done ${spins} spins with bet ${bet}. \n${highestWin} \nBalance at end is ${balance}.\nThat means RTP is ${
+//       balance / 10000
+//     }%`
+//   );
+// }
+
+export function RTPcalc(nrSpins: number) {
+  let spins: number = 0;
+  let hw: number = 0;
+  let highestWin: string = "";
+  let balance: number = 1000000;
+  let bet: number = 10;
+  let totalBets: number = 0; // Track total amount bet
+  let totalPayouts: number = 0; // Track total payouts
+
+  for (let i = 1; i <= nrSpins; i++) {
+    if (i % (nrSpins / 100) == 0) {
+      console.log(`${((i / nrSpins) * 100).toFixed(2)}%`);
+    }
+    let temp = createSpin(bet, false);
+    totalBets += bet; // Add bet to total bets
+    balance = balance - bet;
+    if (temp.totalWin > hw) {
+      highestWin = `Highest win was ${
+        temp.totalWin / bet
+      }x at spin number ${i}.`;
+      hw = temp.totalWin;
+    }
+    if (temp.totalWin > 0) {
+      totalPayouts += temp.totalWin; // Add payout to total payouts
+      balance = balance + temp.totalWin;
+    }
+    spins++;
+  }
+
+  // Calculate RTP as (totalPayouts / totalBets) * 100
+  let rtp = (totalPayouts / totalBets) * 100;
+
+  console.log(
+    `Done ${spins} spins with bet ${bet}. \n${highestWin} \nBalance at end is ${balance}.\nThat means RTP is ${rtp.toFixed(
+      2
+    )}%`
+  );
 }

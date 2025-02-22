@@ -1,81 +1,81 @@
 {
   "frames": {
     "bag_of_gold.png": {
-      "frame": { "x": 1474, "y": 518, "w": 493, "h": 447 },
-      "rotated": true,
+      "frame": { "x": 0, "y": 0, "w": 493, "h": 447 },
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": { "x": 0, "y": 0, "w": 493, "h": 447 },
       "sourceSize": { "w": 493, "h": 447 }
     },
     "barrels.png": {
-      "frame": { "x": 1032, "y": 1, "w": 515, "h": 448 },
-      "rotated": true,
+      "frame": { "x": 1066, "y": 447, "w": 515, "h": 448 },
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": { "x": 0, "y": 0, "w": 515, "h": 448 },
       "sourceSize": { "w": 515, "h": 448 }
     },
-    "boots.png": {
-      "frame": { "x": 1482, "y": 1, "w": 447, "h": 436 },
-      "rotated": true,
-      "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 447, "h": 436 },
-      "sourceSize": { "w": 447, "h": 436 }
-    },
-    "dynamite_crate.png": {
-      "frame": { "x": 1, "y": 1093, "w": 544, "h": 376 },
-      "rotated": false,
-      "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 544, "h": 376 },
-      "sourceSize": { "w": 544, "h": 376 }
-    },
-    "female_cut.png": {
-      "frame": { "x": 1, "y": 1, "w": 544, "h": 531 },
-      "rotated": true,
-      "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 544, "h": 531 },
-      "sourceSize": { "w": 544, "h": 531 }
-    },
-    "gas_lamp.png": {
-      "frame": { "x": 534, "y": 1, "w": 522, "h": 496 },
-      "rotated": true,
-      "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 522, "h": 496 },
-      "sourceSize": { "w": 522, "h": 496 }
-    },
-    "male_cut.png": {
-      "frame": { "x": 1, "y": 547, "w": 544, "h": 531 },
-      "rotated": true,
-      "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 544, "h": 531 },
-      "sourceSize": { "w": 544, "h": 531 }
-    },
-    "pile_of_gold.png": {
-      "frame": { "x": 1081, "y": 1046, "w": 533, "h": 428 },
+    "boots2.png": {
+      "frame": { "x": 493, "y": 0, "w": 533, "h": 428 },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": { "x": 0, "y": 0, "w": 533, "h": 428 },
       "sourceSize": { "w": 533, "h": 428 }
     },
-    "snake.png": {
-      "frame": { "x": 547, "y": 1050, "w": 532, "h": 377 },
+    "dynamite_crate2.png": {
+      "frame": { "x": 1026, "y": 0, "w": 533, "h": 428 },
       "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 532, "h": 377 },
-      "sourceSize": { "w": 532, "h": 377 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 533, "h": 428 },
+      "sourceSize": { "w": 533, "h": 428 }
+    },
+    "female_cut_transp3.png": {
+      "frame": { "x": 1041, "y": 895, "w": 553, "h": 489 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 553, "h": 489 },
+      "sourceSize": { "w": 553, "h": 489 }
+    },
+    "gas_lamp.png": {
+      "frame": { "x": 519, "y": 895, "w": 522, "h": 496 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 522, "h": 496 },
+      "sourceSize": { "w": 522, "h": 496 }
+    },
+    "male_cut_transp3.png": {
+      "frame": { "x": 0, "y": 1391, "w": 553, "h": 489 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 553, "h": 489 },
+      "sourceSize": { "w": 553, "h": 489 }
+    },
+    "pile_of_gold.png": {
+      "frame": { "x": 0, "y": 447, "w": 533, "h": 428 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 533, "h": 428 },
+      "sourceSize": { "w": 533, "h": 428 }
+    },
+    "snake2.png": {
+      "frame": { "x": 533, "y": 447, "w": 533, "h": 428 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 533, "h": 428 },
+      "sourceSize": { "w": 533, "h": 428 }
     },
     "trolley.png": {
-      "frame": { "x": 1022, "y": 525, "w": 519, "h": 450 },
-      "rotated": true,
+      "frame": { "x": 0, "y": 895, "w": 519, "h": 450 },
+      "rotated": false,
       "trimmed": false,
       "spriteSourceSize": { "x": 0, "y": 0, "w": 519, "h": 450 },
       "sourceSize": { "w": 519, "h": 450 }
     },
-    "wild.png": {
-      "frame": { "x": 534, "y": 525, "w": 523, "h": 486 },
-      "rotated": true,
+    "wild3.png": {
+      "frame": { "x": 553, "y": 1391, "w": 553, "h": 489 },
+      "rotated": false,
       "trimmed": false,
-      "spriteSourceSize": { "x": 0, "y": 0, "w": 523, "h": 486 },
-      "sourceSize": { "w": 523, "h": 486 }
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 553, "h": 489 },
+      "sourceSize": { "w": 553, "h": 489 }
     }
   },
   "meta": {
@@ -83,8 +83,8 @@
     "version": "1.1",
     "image": "symbol_atlas.png",
     "format": "RGBA8888",
-    "size": { "w": 1922, "h": 1475 },
+    "size": { "w": 1594, "h": 1880 },
     "scale": "1",
-    "smartupdate": "$TexturePacker:SmartUpdate:9a5b02abd2fdd3010ea38fd8fb5e8208:97b6863ed0bbf9bc96275b5b791ec6db:837d8a13b4786381db2f3c7ce6a7fe00$"
+    "smartupdate": "$TexturePacker:SmartUpdate:27ecc6514498cfe4bccb67b641adeab3:b2e9ccf5b68006425d8f584ce901e94d:837d8a13b4786381db2f3c7ce6a7fe00$"
   }
 }
