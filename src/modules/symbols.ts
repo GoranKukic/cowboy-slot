@@ -45,7 +45,7 @@ export const symbol1 = createSlotSymbol("symbol1", symPlaceholderTx, [
 ]);
 
 // Barrels
-const symbol2 = createSlotSymbol("symbol2", symPlaceholderTx, [
+export const symbol2 = createSlotSymbol("symbol2", symPlaceholderTx, [
   [],
   [],
   [],
@@ -55,7 +55,7 @@ const symbol2 = createSlotSymbol("symbol2", symPlaceholderTx, [
 ]);
 
 // Male
-const symbol3 = createSlotSymbol("symbol3", symPlaceholderTx, [
+export const symbol3 = createSlotSymbol("symbol3", symPlaceholderTx, [
   [],
   [],
   [],
@@ -65,7 +65,7 @@ const symbol3 = createSlotSymbol("symbol3", symPlaceholderTx, [
 ]);
 
 // Female
-const symbol4 = createSlotSymbol("symbol4", symPlaceholderTx, [
+export const symbol4 = createSlotSymbol("symbol4", symPlaceholderTx, [
   [],
   [],
   [],
@@ -75,7 +75,7 @@ const symbol4 = createSlotSymbol("symbol4", symPlaceholderTx, [
 ]);
 
 // Dynamite crate
-const symbol5 = createSlotSymbol("symbol5", symPlaceholderTx, [
+export const symbol5 = createSlotSymbol("symbol5", symPlaceholderTx, [
   [],
   [],
   [],
@@ -85,7 +85,7 @@ const symbol5 = createSlotSymbol("symbol5", symPlaceholderTx, [
 ]);
 
 // Trolley
-const symbol6 = createSlotSymbol("symbol6", symPlaceholderTx, [
+export const symbol6 = createSlotSymbol("symbol6", symPlaceholderTx, [
   [],
   [],
   [],
@@ -95,7 +95,7 @@ const symbol6 = createSlotSymbol("symbol6", symPlaceholderTx, [
 ]);
 
 // Gas Lamp
-const symbol7 = createSlotSymbol("symbol7", symPlaceholderTx, [
+export const symbol7 = createSlotSymbol("symbol7", symPlaceholderTx, [
   [],
   [],
   [],
@@ -105,7 +105,7 @@ const symbol7 = createSlotSymbol("symbol7", symPlaceholderTx, [
 ]);
 
 // Pile of gold
-const symbol8 = createSlotSymbol("symbol8", symPlaceholderTx, [
+export const symbol8 = createSlotSymbol("symbol8", symPlaceholderTx, [
   [],
   [],
   [],

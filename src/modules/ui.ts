@@ -26,6 +26,8 @@ export let landscapeUIContainer: PIXI.Container;
 let landscapeUIBase1Sprite: PIXI.Sprite;
 let coinContainer: PIXI.Container;
 let betContainer: PIXI.Container;
+let soundContainer: PIXI.Container;
+let infoContainer: PIXI.Container;
 
 export const initLandscapeUI = function () {
   landscapeUIContainer = createContainer(window.__MAIN_CONTAINER__);
@@ -179,7 +181,7 @@ export const initLandscapeUI = function () {
   // invrease bet
   betValueIncreaseText = createText(betValueContainer, ">", secondaryTextStyle);
   betValueIncreaseText.label = "betValueIncreaseText";
-  betValueIncreaseText.position.x = 95;
+  betValueIncreaseText.position.x = 85;
 
   betValueIncreaseText.interactive = true;
   betValueIncreaseText.cursor = "pointer";
@@ -208,7 +210,7 @@ export const initLandscapeUI = function () {
   // decrease bet
   betValueDecreaseText = createText(betValueContainer, "<", secondaryTextStyle);
   betValueDecreaseText.label = "betValueDecreaseText";
-  betValueDecreaseText.position.x = -95;
+  betValueDecreaseText.position.x = -85;
 
   betValueDecreaseText.interactive = true;
   betValueDecreaseText.cursor = "pointer";
@@ -256,17 +258,92 @@ export const initLandscapeUI = function () {
   coinValueContainer.position.y = 60;
   coinValueText = createText(coinValueContainer, bal, primaryTextStyle);
   coinValueText.label = "coinValueText";
+
+  // Sound container
+  soundContainer = createContainer(landscapeUIContainer);
+  soundContainer.label = "soundContainer";
+  soundContainer.position.x = 380;
+  soundContainer.position.y = 10;
+  soundContainer.scale.set(0.8);
+
+  const soundTitleContainer = createContainer(soundContainer);
+  soundTitleContainer.label = "soundTitleContainer";
+  soundTitleContainer.position.y = 0;
+  const soundTitleText = createText(
+    soundTitleContainer,
+    "SOUND",
+    primaryTextStyle
+  );
+  soundTitleText.label = "soundTitleText";
+
+  const soundValueContainer = createContainer(soundContainer);
+  soundValueContainer.label = "soundValueContainer";
+  soundValueContainer.position.x = 0;
+  soundValueContainer.position.y = 60;
+
+  const soundIconTexture = PIXI.Assets.get("/assets/images/sound_icon.png");
+  const soundIconSprite = new PIXI.Sprite(soundIconTexture);
+
+  const desaturateEffect = new PIXI.ColorMatrixFilter();
+  desaturateEffect.desaturate();
+  soundIconSprite.filters = [desaturateEffect];
+
+  soundIconSprite.anchor.set(0.5, 0.5);
+  soundIconSprite.width = 256;
+  soundIconSprite.height = 256;
+  soundIconSprite.scale.set(0.2);
+  soundIconSprite.alpha = 0.5;
+
+  soundValueContainer.addChild(soundIconSprite);
+
+  // Info Container
+  infoContainer = createContainer(landscapeUIContainer);
+  infoContainer.label = "infoContainer";
+  infoContainer.position.x = -380;
+  infoContainer.position.y = 10;
+  infoContainer.scale.set(0.8);
+
+  const infoTitleContainer = createContainer(infoContainer);
+  infoTitleContainer.label = "infoTitleContainer";
+  infoTitleContainer.position.y = 0;
+  const infoTitleText = createText(
+    infoTitleContainer,
+    "INFO",
+    primaryTextStyle
+  );
+  infoTitleText.label = "infoTitleText";
+
+  const infoValueContainer = createContainer(infoContainer);
+  infoValueContainer.label = "infoValueContainer";
+  infoValueContainer.position.x = 0;
+  infoValueContainer.position.y = 60;
+
+  const infoIconTexture = PIXI.Assets.get("/assets/images/info_icon.png");
+  const infoIconSprite = new PIXI.Sprite(infoIconTexture);
+
+  infoIconSprite.filters = [desaturateEffect];
+  infoIconSprite.anchor.set(0.5, 0.5);
+  infoIconSprite.width = 256;
+  infoIconSprite.height = 256;
+  infoIconSprite.scale.set(0.2);
+  infoIconSprite.alpha = 0.5;
+
+  infoValueContainer.addChild(infoIconSprite);
 };
 
-export function initPortraitUI(status: boolean) {
+export async function initPortraitUI(status: boolean) {
   if (status === true) {
+    // Portrait
     setTransform(spinBtnContainer, 0, -280, 1.4, 1.4);
     setTransform(maxBetBtnContainer, 300, -260, 1.4, 1.4);
     setTransform(autoplayBtnContainer, -300, -260, 1.4, 1.4);
     landscapeUIBase1Sprite.scale.y = 3;
     landscapeUIBase1Sprite.scale.x = 0.7;
-    setTransform(coinContainer, 0, -85, 1.4, 1.4);
+    setTransform(coinContainer, 160, -85, 1.4, 1.4);
     setTransform(betContainer, -440, -85, 1.4, 1.4);
+
+    setTransform(soundContainer, 440, -85, 1.4, 1.4);
+    setTransform(infoContainer, -160, -85, 1.4, 1.4);
 
     spinBtnContainer.on("pointerover", () => {
       spinBtnContainer.scale.set(1.38);
@@ -276,6 +353,7 @@ export function initPortraitUI(status: boolean) {
       spinBtnContainer.scale.set(1.4);
     });
   } else {
+    // Landscape
     setTransform(spinBtnContainer, 0, 10, 0.8, 0.8);
     setTransform(maxBetBtnContainer, 200, 35, 0.8, 0.8);
     setTransform(autoplayBtnContainer, -200, 35, 0.8, 0.8);
@@ -283,6 +361,8 @@ export function initPortraitUI(status: boolean) {
     landscapeUIBase1Sprite.scale.x = 1;
     setTransform(coinContainer, 500, 10, 0.8, 0.8);
     setTransform(betContainer, -500, 10, 0.8, 0.8);
+    setTransform(soundContainer, 380, 10, 0.8, 0.8);
+    setTransform(infoContainer, -380, 10, 0.8, 0.8);
 
     spinBtnContainer.on("pointerover", () => {
       spinBtnContainer.scale.set(0.78);

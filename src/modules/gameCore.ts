@@ -2,15 +2,24 @@
 import * as PIXI from "pixi.js";
 import { addTextureToSymbols } from "./symbols";
 
-let assets = [
+let assets: string[] = [
   "slot_bg_textures",
   "ui_texture",
   "symbol_texture",
   "tile_texture",
+  "westwoman",
+  "westman_00",
+  "westman_01",
+  "westman_02",
+  "westman_03",
 ];
-let fonts = ["Durango Western Eroded"];
-
-let animateLoading = true;
+// let spineAssets: string[] = ["WEST-SLOTS-character-Woman"];
+let pngAssets: string[] = [
+  "/assets/images/sound_icon.png",
+  "/assets/images/info_icon.png",
+];
+let fonts: string[] = ["Durango Western Eroded"];
+let animateLoading: boolean = true;
 
 export const initGame = async (
   containerId: string
@@ -39,7 +48,6 @@ export const initGame = async (
 
   loadingGunAnim();
   await loadAssets();
-  // console.log("Assets loaded");
   addTextureToSymbols();
   animateLoading = false;
 
@@ -53,12 +61,15 @@ export const loadAssets = async (): Promise<void> => {
       PIXI.Assets.load(`/assets/sprites/${asset}.json`)
     );
 
+    // Load PNG assets
+    const pngPromises = pngAssets.map((asset) => PIXI.Assets.load(asset));
+
     // Load fonts
     const fontPromises = fonts.map((font) =>
       PIXI.Assets.load(`/fonts/${font}.ttf`)
     );
 
-    await Promise.all([...assetPromises, ...fontPromises]);
+    await Promise.all([...assetPromises, ...pngPromises, ...fontPromises]);
   } catch (error) {
     console.error("Error loading assets:", error);
   }

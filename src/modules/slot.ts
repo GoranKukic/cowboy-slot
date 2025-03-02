@@ -1,5 +1,13 @@
 // slot.ts
 import * as PIXI from "pixi.js";
+import { gsap } from "gsap";
+import { symbolChances, slot } from "./symbols";
+import { createSpin, Spin, randomInt } from "./spin";
+import {
+  findMatchingReel,
+  createReelAnimation,
+  clearCharacterReels,
+} from "./reelAnimation";
 import {
   createContainer,
   createSprite,
@@ -8,8 +16,6 @@ import {
   primaryTextStyle,
   winingTextStyle,
 } from "./pixiSetup";
-import { symbolChances, slot } from "./symbols";
-import { createSpin, Spin, randomInt } from "./spin";
 import {
   spinBtnContainer,
   spinBtnIcon,
@@ -23,7 +29,6 @@ import {
   autoplayBtnContainer,
   autoplayBtnText,
 } from "./ui";
-import { gsap } from "gsap";
 
 // Setting variables
 let startingY: number = 0;
@@ -37,8 +42,8 @@ let reels: PIXI.Container[];
 let sp: Spin;
 let tWin: number = 0;
 let showLines: PIXI.Ticker;
-const reelWidth: number = 224.1;
-let reelHeight: number = 630;
+export const reelWidth: number = 224.1;
+export let reelHeight: number = 630;
 const initialX: number = -560.5;
 const initialY: number = -315;
 let winningLineText: PIXI.Text;
@@ -62,6 +67,13 @@ enum States {
   stopping, // We want to stop spinning
 }
 let state: States = States.idle;
+
+let characterReel1: PIXI.Container;
+let characterReel2: PIXI.Container;
+let characterReel3: PIXI.Container;
+let characterReel4: PIXI.Container;
+let characterReel5: PIXI.Container;
+let characterReels: PIXI.Container[] = [];
 
 export const initSlot = function () {
   let s = createSpin(10, false);
@@ -204,6 +216,50 @@ export const initSlot = function () {
     reels[i + 1].mask = mask;
   }
 
+  // Character reels
+  characterReel1 = createContainer(slotContainer);
+  characterReel1.label = "characterReel 1";
+  characterReel2 = createContainer(slotContainer);
+  characterReel2.label = "characterReel 2";
+  characterReel3 = createContainer(slotContainer);
+  characterReel3.label = "characterReel 3";
+  characterReel4 = createContainer(slotContainer);
+  characterReel4.label = "characterReel 4";
+  characterReel5 = createContainer(slotContainer);
+  characterReel5.label = "characterReel 5";
+
+  characterReels = [
+    characterReel1,
+    characterReel2,
+    characterReel3,
+    characterReel4,
+    characterReel5,
+  ];
+
+  symbolWidth = reelWidth;
+
+  characterReels.forEach(async (chatReel, index) => {
+    const westgirlBgTex = await PIXI.Assets.load(
+      "/assets/images/westgirl_bg.png"
+    );
+    const westmanBgTex = await PIXI.Assets.load(
+      "/assets/images/westman_bg.png"
+    );
+    const westgirlBg: PIXI.Sprite = new PIXI.Sprite(westgirlBgTex);
+    const westmanBg: PIXI.Sprite = new PIXI.Sprite(westmanBgTex);
+
+    [westgirlBg, westmanBg].forEach((bg, i) => {
+      bg.width = reelWidth;
+      bg.height = reelHeight;
+      bg.label = chatReel.label + (i === 0 ? "_westgirl_bg" : "_westman_bg");
+      bg.visible = false;
+      chatReel.addChild(bg);
+    });
+
+    chatReel.position.y = initialY;
+    chatReel.position.x = initialX + reelWidth * index;
+  });
+
   const slotLogo: PIXI.Sprite = createSprite(slotContainer, "slot_logo.png");
   slotLogo.label = "slotLogo";
   setTransform(slotLogo, 0, -348, 0.5, 0.5);
@@ -285,6 +341,7 @@ export const initSlot = function () {
 function triggerSpinAction() {
   winningAmountText.text = "";
   winningLineText.text = "";
+  clearCharacterReels(characterReels);
 
   if (bal - stake < 0) {
     return;
@@ -506,6 +563,7 @@ function showResults(result: Spin) {
   showLines = new PIXI.Ticker();
   tWin = result.totalWin;
   state = States.resultDone;
+
   let copySOWf = [...result.symbolsOnWinning]; // Copy
   let winC = result.winningLines.filter((el) => {
     return el != null;
@@ -523,6 +581,7 @@ function showResults(result: Spin) {
   let ln: number = 0;
   let w: number = 0;
 
+  // We have win
   if (copySOWf.length > 0) {
     if (isAutoPlay === true) {
       autoplayBtnContainer.interactive = false;
@@ -585,7 +644,29 @@ function showResults(result: Spin) {
     showLines.start();
     spinBtnIcon.alpha = 0;
     spinBtnCollectIcon.alpha = 1;
-  } else {
+  }
+  // There is no win
+  else {
+    const matchingReels = findMatchingReel(result.spinResult);
+
+    if (matchingReels.length !== 0) {
+      matchingReels.forEach(({ index, symbol }) => {
+        let assetKey = "";
+
+        if (symbol === "symbol3") {
+          assetKey = "westman";
+        } else if (symbol === "symbol4") {
+          assetKey = "westwoman";
+        }
+
+        const reelContainer = characterReels[index];
+
+        if (reelContainer && assetKey && !isAutoPlay) {
+          createReelAnimation(reelContainer, assetKey);
+        }
+      });
+    }
+
     state = States.idle;
 
     if (isAutoPlay === true) {

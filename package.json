@@ -10,13 +10,13 @@
   },
   "devDependencies": {
     "@types/howler": "^2.2.11",
-    "@types/pixi.js": "^5.0.0",
     "typescript": "^5.5.4",
     "vite": "^5.4.1"
   },
   "dependencies": {
+    "@esotericsoftware/spine-pixi-v8": "^4.2.74",
     "gsap": "^3.12.5",
     "howler": "^2.2.4",
-    "pixi.js": "^8.3.4"
+    "pixi.js": "^8.8.0"
   }
 }

@@ -1,0 +1,181 @@
+{
+  "frames": {
+    "WEST-SLOTS-character-Man-animation_24.png": {
+      "frame": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_25.png": {
+      "frame": { "x": 673, "y": 0, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_26.png": {
+      "frame": { "x": 1346, "y": 0, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_27.png": {
+      "frame": { "x": 2019, "y": 0, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_28.png": {
+      "frame": { "x": 2692, "y": 0, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_29.png": {
+      "frame": { "x": 3365, "y": 0, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_30.png": {
+      "frame": { "x": 0, "y": 844, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_31.png": {
+      "frame": { "x": 673, "y": 844, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_32.png": {
+      "frame": { "x": 1346, "y": 844, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_33.png": {
+      "frame": { "x": 2019, "y": 844, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_34.png": {
+      "frame": { "x": 2692, "y": 844, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_35.png": {
+      "frame": { "x": 3365, "y": 844, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_36.png": {
+      "frame": { "x": 0, "y": 1688, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_37.png": {
+      "frame": { "x": 673, "y": 1688, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_38.png": {
+      "frame": { "x": 1346, "y": 1688, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_39.png": {
+      "frame": { "x": 2019, "y": 1688, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_40.png": {
+      "frame": { "x": 2692, "y": 1688, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_41.png": {
+      "frame": { "x": 3365, "y": 1688, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_42.png": {
+      "frame": { "x": 0, "y": 2532, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_43.png": {
+      "frame": { "x": 673, "y": 2532, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_44.png": {
+      "frame": { "x": 1346, "y": 2532, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_45.png": {
+      "frame": { "x": 2019, "y": 2532, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_46.png": {
+      "frame": { "x": 2692, "y": 2532, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    },
+    "WEST-SLOTS-character-Man-animation_47.png": {
+      "frame": { "x": 3365, "y": 2532, "w": 673, "h": 844 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 673, "h": 844 },
+      "sourceSize": { "w": 673, "h": 844 }
+    }
+  },
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "1.1",
+    "image": "westman_01.png",
+    "format": "RGBA8888",
+    "size": { "w": 4038, "h": 3376 },
+    "scale": "0.29",
+    "smartupdate": "$TexturePacker:SmartUpdate:80cb294f239ed2014c5a9418b4a7d8c3:7c5b0dc39122c5e7296cc81e4ec24c9e:f3bac62492fa6ae4f86d5f385280782b$"
+  }
+}

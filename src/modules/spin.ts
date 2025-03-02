@@ -1,6 +1,9 @@
 // spin.ts
 import type { SlotSymbol } from "./symbols";
 import { slot, symbol1, symbol9, symbolChances, countSymbols } from "./symbols";
+import { forcedCharacterCombinations } from "./reelAnimation";
+
+let spinCounter: number = 0;
 
 export interface Spin {
   spinResult: SlotSymbol[][];
@@ -33,16 +36,32 @@ export const createSpin = (bet: number, logs?: boolean): Spin => {
   }
 
   function drawSymbols(): SlotSymbol[][] {
+    spinCounter++;
+
     let result: SlotSymbol[][] = [];
-    for (let ro = 0; ro < slot.rows; ro++) {
-      result[ro] = [];
-      for (let re = 0; re < slot.reels; re++) {
-        let temp = randomInt(1, symbolsAmount);
-        let res = symbolChances.numberToSymbol(temp);
-        if (res !== undefined) {
-          result[ro][re] = res;
-        } else {
-          throw new Error(`Error drawing value res (${res}) is undefined`);
+
+    // Every 5 spins we use defined combiation for reel animation
+    if (spinCounter % 5 === 0) {
+      const randomIndex = randomInt(0, forcedCharacterCombinations.length - 1);
+      let chosenCombination: SlotSymbol[][] =
+        forcedCharacterCombinations[randomIndex];
+
+      for (let row = 0; row < slot.rows; row++) {
+        result[row] = [...chosenCombination[row]];
+      }
+    }
+    // Standard radnom generating of symbols
+    else {
+      for (let ro = 0; ro < slot.rows; ro++) {
+        result[ro] = [];
+        for (let re = 0; re < slot.reels; re++) {
+          let temp = randomInt(1, symbolsAmount);
+          let res = symbolChances.numberToSymbol(temp);
+          if (res !== undefined) {
+            result[ro][re] = res;
+          } else {
+            throw new Error(`Error drawing value res (${res}) is undefined`);
+          }
         }
       }
     }

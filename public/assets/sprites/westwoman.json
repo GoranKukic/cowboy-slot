@@ -1,0 +1,440 @@
+{
+  "frames": {
+    "WEST-SLOTS-character-Woman-animation_00.png": {
+      "frame": { "x": 1787, "y": 1, "w": 266, "h": 754 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 48, "w": 266, "h": 754 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_01.png": {
+      "frame": { "x": 1481, "y": 760, "w": 268, "h": 756 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 46, "w": 268, "h": 756 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_02.png": {
+      "frame": { "x": 915, "y": 1533, "w": 271, "h": 758 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 44, "w": 271, "h": 758 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_03.png": {
+      "frame": { "x": 633, "y": 773, "w": 275, "h": 760 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 42, "w": 275, "h": 760 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_04.png": {
+      "frame": { "x": 591, "y": 2350, "w": 279, "h": 761 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 41, "w": 279, "h": 761 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_05.png": {
+      "frame": { "x": 629, "y": 1586, "w": 284, "h": 760 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 42, "w": 284, "h": 760 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_06.png": {
+      "frame": { "x": 1188, "y": 1533, "w": 289, "h": 757 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 45, "w": 289, "h": 757 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_07.png": {
+      "frame": { "x": 2787, "y": 1, "w": 308, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 308, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_08.png": {
+      "frame": { "x": 3350, "y": 1504, "w": 328, "h": 748 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 54, "w": 328, "h": 748 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_09.png": {
+      "frame": { "x": 3332, "y": 2258, "w": 347, "h": 748 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 54, "w": 347, "h": 748 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_10.png": {
+      "frame": { "x": 3275, "y": 754, "w": 364, "h": 748 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 54, "w": 364, "h": 748 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_11.png": {
+      "frame": { "x": 3332, "y": 3000, "w": 379, "h": 747 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 55, "w": 379, "h": 747 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_12.png": {
+      "frame": { "x": 3332, "y": 2607, "w": 391, "h": 747 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 55, "w": 391, "h": 747 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_13.png": {
+      "frame": { "x": 3680, "y": 751, "w": 401, "h": 746 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 56, "w": 401, "h": 746 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_14.png": {
+      "frame": { "x": 3180, "y": 3381, "w": 407, "h": 746 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 56, "w": 407, "h": 746 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_15.png": {
+      "frame": { "x": 1, "y": 3160, "w": 411, "h": 746 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 56, "w": 411, "h": 746 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_16.png": {
+      "frame": { "x": 3680, "y": 1499, "w": 345, "h": 747 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 55, "w": 345, "h": 747 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_17.png": {
+      "frame": { "x": 3393, "y": 1, "w": 355, "h": 748 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 54, "w": 355, "h": 748 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_18.png": {
+      "frame": { "x": 3003, "y": 1507, "w": 345, "h": 749 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 53, "w": 345, "h": 749 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_19.png": {
+      "frame": { "x": 2985, "y": 2260, "w": 345, "h": 750 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 52, "w": 345, "h": 750 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_20.png": {
+      "frame": { "x": 2792, "y": 3013, "w": 386, "h": 750 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 52, "w": 386, "h": 750 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_21.png": {
+      "frame": { "x": 749, "y": 3113, "w": 408, "h": 750 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 52, "w": 408, "h": 750 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_22.png": {
+      "frame": { "x": 604, "y": 1, "w": 344, "h": 770 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 7, "y": 32, "w": 344, "h": 770 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_23.png": {
+      "frame": { "x": 2019, "y": 1511, "w": 354, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 4, "y": 51, "w": 354, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_24.png": {
+      "frame": { "x": 2313, "y": 754, "w": 345, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 2, "y": 51, "w": 345, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_25.png": {
+      "frame": { "x": 2441, "y": 1, "w": 344, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 0, "y": 51, "w": 344, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_26.png": {
+      "frame": { "x": 2055, "y": 1, "w": 384, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 2, "y": 51, "w": 384, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_27.png": {
+      "frame": { "x": 1800, "y": 3035, "w": 374, "h": 753 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 4, "y": 49, "w": 374, "h": 753 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_28.png": {
+      "frame": { "x": 1, "y": 1600, "w": 328, "h": 789 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 6, "y": 13, "w": 328, "h": 789 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_29.png": {
+      "frame": { "x": 2375, "y": 1507, "w": 328, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 328, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_30.png": {
+      "frame": { "x": 2660, "y": 754, "w": 316, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 51, "w": 316, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_31.png": {
+      "frame": { "x": 2176, "y": 3029, "w": 313, "h": 752 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 50, "w": 313, "h": 752 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_32.png": {
+      "frame": { "x": 2013, "y": 2275, "w": 367, "h": 752 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 50, "w": 367, "h": 752 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_33.png": {
+      "frame": { "x": 297, "y": 803, "w": 334, "h": 781 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 21, "w": 334, "h": 781 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_34.png": {
+      "frame": { "x": 1, "y": 1, "w": 307, "h": 800 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 2, "w": 307, "h": 800 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_35.png": {
+      "frame": { "x": 1, "y": 803, "w": 294, "h": 795 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 7, "w": 294, "h": 795 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_36.png": {
+      "frame": { "x": 310, "y": 1, "w": 292, "h": 781 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 10, "y": 21, "w": 292, "h": 781 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_37.png": {
+      "frame": { "x": 1, "y": 2391, "w": 292, "h": 767 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 35, "w": 292, "h": 767 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_38.png": {
+      "frame": { "x": 295, "y": 2391, "w": 294, "h": 765 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 37, "w": 294, "h": 765 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_39.png": {
+      "frame": { "x": 331, "y": 1586, "w": 296, "h": 762 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 40, "w": 296, "h": 762 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_40.png": {
+      "frame": { "x": 1150, "y": 2293, "w": 298, "h": 757 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 45, "w": 298, "h": 757 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_41.png": {
+      "frame": { "x": 2685, "y": 2260, "w": 298, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 298, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_42.png": {
+      "frame": { "x": 2382, "y": 2260, "w": 301, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 301, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_43.png": {
+      "frame": { "x": 2491, "y": 3013, "w": 299, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 299, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_44.png": {
+      "frame": { "x": 2705, "y": 1507, "w": 296, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 296, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_45.png": {
+      "frame": { "x": 2978, "y": 754, "w": 295, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 295, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_46.png": {
+      "frame": { "x": 3097, "y": 1, "w": 294, "h": 751 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 51, "w": 294, "h": 751 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_47.png": {
+      "frame": { "x": 2019, "y": 757, "w": 292, "h": 752 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 50, "w": 292, "h": 752 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_48.png": {
+      "frame": { "x": 1508, "y": 3051, "w": 290, "h": 754 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 48, "w": 290, "h": 754 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_49.png": {
+      "frame": { "x": 1723, "y": 2278, "w": 288, "h": 755 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 47, "w": 288, "h": 755 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_50.png": {
+      "frame": { "x": 1193, "y": 761, "w": 286, "h": 757 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 45, "w": 286, "h": 757 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_51.png": {
+      "frame": { "x": 1231, "y": 1, "w": 284, "h": 757 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 45, "w": 284, "h": 757 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_52.png": {
+      "frame": { "x": 910, "y": 773, "w": 281, "h": 758 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 44, "w": 281, "h": 758 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_53.png": {
+      "frame": { "x": 950, "y": 1, "w": 279, "h": 758 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 8, "y": 44, "w": 279, "h": 758 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_54.png": {
+      "frame": { "x": 872, "y": 2348, "w": 276, "h": 758 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 44, "w": 276, "h": 758 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_55.png": {
+      "frame": { "x": 749, "y": 3523, "w": 273, "h": 757 },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 45, "w": 273, "h": 757 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_56.png": {
+      "frame": { "x": 1450, "y": 2292, "w": 271, "h": 757 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 45, "w": 271, "h": 757 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_57.png": {
+      "frame": { "x": 1479, "y": 1520, "w": 269, "h": 756 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 46, "w": 269, "h": 756 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_58.png": {
+      "frame": { "x": 1517, "y": 1, "w": 268, "h": 756 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 46, "w": 268, "h": 756 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_59.png": {
+      "frame": { "x": 1750, "y": 1518, "w": 267, "h": 755 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 47, "w": 267, "h": 755 },
+      "sourceSize": { "w": 419, "h": 802 }
+    },
+    "WEST-SLOTS-character-Woman-animation_60.png": {
+      "frame": { "x": 1751, "y": 759, "w": 266, "h": 755 },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": { "x": 9, "y": 47, "w": 266, "h": 755 },
+      "sourceSize": { "w": 419, "h": 802 }
+    }
+  },
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "westwoman.png",
+    "format": "RGBA8888",
+    "size": { "w": 4082, "h": 3806 },
+    "scale": "0.29",
+    "smartupdate": "$TexturePacker:SmartUpdate:93ddcbced163584fc2b2b437ae4509bc:e43dd2ad33fd64641ddbf52120134572:2f904b4c6b752c064cc61422adbc47bd$"
+  }
+}
