@@ -3,6 +3,7 @@ import * as PIXI from "pixi.js";
 // import { Spine } from "@esotericsoftware/spine-pixi-v8";
 // import "@esotericsoftware/spine-pixi-v8";
 import type { SlotSymbol } from "./symbols";
+import { playSoundEffect } from "./sound";
 import { gsap } from "gsap";
 import {
   symbol1,
@@ -158,11 +159,13 @@ export async function createReelAnimation(
     cowboy.x = parntContainer.width / 2 + 57;
     cowboy.y = parntContainer.height / 2 - 13;
     cowboy.scale.set(0.235);
+    playSoundEffect("westwoman_sound");
   } else if (assetKey === "westman") {
     cowboy.x = parntContainer.width / 2 - 83;
     cowboy.y = parntContainer.height / 2 - 20;
     cowboy.scale.x = 0.23;
     cowboy.scale.y = 0.23;
+    playSoundEffect("westman_sound");
   }
 
   cowboy.animationSpeed = 0.5;

@@ -9,6 +9,7 @@ import {
   secondaryTextStyle,
 } from "./pixiSetup";
 import { bal, stake } from "./slot";
+import { initSound } from "./sound";
 import { gsap } from "gsap";
 
 export let spinBtnContainer: PIXI.Container;
@@ -27,6 +28,8 @@ let landscapeUIBase1Sprite: PIXI.Sprite;
 let coinContainer: PIXI.Container;
 let betContainer: PIXI.Container;
 let soundContainer: PIXI.Container;
+export let soundValueContainer: PIXI.Container;
+
 let infoContainer: PIXI.Container;
 
 export const initLandscapeUI = function () {
@@ -161,8 +164,10 @@ export const initLandscapeUI = function () {
   // Bet Container
   betContainer = createContainer(landscapeUIContainer);
   betContainer.label = "betContainer";
-  betContainer.position.x = -500;
-  betContainer.position.y = 10;
+  // betContainer.position.x = -500;
+  // betContainer.position.y = 10;
+  betContainer.position.x = 0;
+  betContainer.position.y = 60;
   betContainer.scale.set(0.8);
 
   const betTitleContainer = createContainer(betContainer);
@@ -181,7 +186,7 @@ export const initLandscapeUI = function () {
   // invrease bet
   betValueIncreaseText = createText(betValueContainer, ">", secondaryTextStyle);
   betValueIncreaseText.label = "betValueIncreaseText";
-  betValueIncreaseText.position.x = 85;
+  betValueIncreaseText.position.x = 55;
 
   betValueIncreaseText.interactive = true;
   betValueIncreaseText.cursor = "pointer";
@@ -210,7 +215,7 @@ export const initLandscapeUI = function () {
   // decrease bet
   betValueDecreaseText = createText(betValueContainer, "<", secondaryTextStyle);
   betValueDecreaseText.label = "betValueDecreaseText";
-  betValueDecreaseText.position.x = -85;
+  betValueDecreaseText.position.x = -55;
 
   betValueDecreaseText.interactive = true;
   betValueDecreaseText.cursor = "pointer";
@@ -262,7 +267,7 @@ export const initLandscapeUI = function () {
   // Sound container
   soundContainer = createContainer(landscapeUIContainer);
   soundContainer.label = "soundContainer";
-  soundContainer.position.x = 380;
+  soundContainer.position.x = -380;
   soundContainer.position.y = 10;
   soundContainer.scale.set(0.8);
 
@@ -276,30 +281,56 @@ export const initLandscapeUI = function () {
   );
   soundTitleText.label = "soundTitleText";
 
-  const soundValueContainer = createContainer(soundContainer);
+  soundValueContainer = createContainer(soundContainer);
   soundValueContainer.label = "soundValueContainer";
   soundValueContainer.position.x = 0;
   soundValueContainer.position.y = 60;
+  soundValueContainer.interactive = true;
 
-  const soundIconTexture = PIXI.Assets.get("/assets/images/sound_icon.png");
-  const soundIconSprite = new PIXI.Sprite(soundIconTexture);
+  const soundIconAllTexture = PIXI.Assets.get(
+    "/assets/images/sound_icon_all.png"
+  );
+  const soundIconEffectsTexture = PIXI.Assets.get(
+    "/assets/images/sound_icon_effects.png"
+  );
 
-  const desaturateEffect = new PIXI.ColorMatrixFilter();
-  desaturateEffect.desaturate();
-  soundIconSprite.filters = [desaturateEffect];
+  const soundIconOffTexture = PIXI.Assets.get(
+    "/assets/images/sound_icon_off.png"
+  );
 
-  soundIconSprite.anchor.set(0.5, 0.5);
-  soundIconSprite.width = 256;
-  soundIconSprite.height = 256;
-  soundIconSprite.scale.set(0.2);
-  soundIconSprite.alpha = 0.5;
+  const soundIconAllSprite = new PIXI.Sprite(soundIconAllTexture);
+  soundIconAllSprite.label = "soundIconAllSprite";
+  const soundIconEffectsSprite = new PIXI.Sprite(soundIconEffectsTexture);
+  soundIconEffectsSprite.label = "soundIconEffectsSprite";
+  const soundIconOffSprite = new PIXI.Sprite(soundIconOffTexture);
+  soundIconOffSprite.label = "soundIconOffSprite";
 
-  soundValueContainer.addChild(soundIconSprite);
+  function setupSprite(sprite: PIXI.Sprite) {
+    sprite.anchor.set(0.5, 0.5);
+    sprite.width = 256;
+    sprite.height = 256;
+    sprite.scale.set(0.2);
+  }
+
+  setupSprite(soundIconAllSprite);
+  setupSprite(soundIconEffectsSprite);
+  setupSprite(soundIconOffSprite);
+
+  soundIconEffectsSprite.visible = false;
+  soundIconOffSprite.visible = false;
+
+  soundValueContainer.addChild(soundIconAllSprite);
+  soundValueContainer.addChild(soundIconEffectsSprite);
+  soundValueContainer.addChild(soundIconOffSprite);
+
+  initSound();
 
   // Info Container
   infoContainer = createContainer(landscapeUIContainer);
   infoContainer.label = "infoContainer";
-  infoContainer.position.x = -380;
+  // infoContainer.position.x = -380;
+  // infoContainer.position.y = 10;
+  infoContainer.position.x = -500;
   infoContainer.position.y = 10;
   infoContainer.scale.set(0.8);
 
@@ -321,6 +352,9 @@ export const initLandscapeUI = function () {
   const infoIconTexture = PIXI.Assets.get("/assets/images/info_icon.png");
   const infoIconSprite = new PIXI.Sprite(infoIconTexture);
 
+  const desaturateEffect = new PIXI.ColorMatrixFilter();
+  desaturateEffect.desaturate();
+
   infoIconSprite.filters = [desaturateEffect];
   infoIconSprite.anchor.set(0.5, 0.5);
   infoIconSprite.width = 256;
@@ -339,11 +373,11 @@ export async function initPortraitUI(status: boolean) {
     setTransform(autoplayBtnContainer, -300, -260, 1.4, 1.4);
     landscapeUIBase1Sprite.scale.y = 3;
     landscapeUIBase1Sprite.scale.x = 0.7;
-    setTransform(coinContainer, 160, -85, 1.4, 1.4);
-    setTransform(betContainer, -440, -85, 1.4, 1.4);
 
-    setTransform(soundContainer, 440, -85, 1.4, 1.4);
-    setTransform(infoContainer, -160, -85, 1.4, 1.4);
+    setTransform(infoContainer, -500, -80, 1.5, 1.5);
+    setTransform(soundContainer, -180, -80, 1.5, 1.5);
+    setTransform(betContainer, 180, -80, 1.5, 1.5);
+    setTransform(coinContainer, 500, -80, 1.5, 1.5);
 
     spinBtnContainer.on("pointerover", () => {
       spinBtnContainer.scale.set(1.38);
@@ -360,9 +394,9 @@ export async function initPortraitUI(status: boolean) {
     landscapeUIBase1Sprite.scale.y = 0.8;
     landscapeUIBase1Sprite.scale.x = 1;
     setTransform(coinContainer, 500, 10, 0.8, 0.8);
-    setTransform(betContainer, -500, 10, 0.8, 0.8);
-    setTransform(soundContainer, 380, 10, 0.8, 0.8);
-    setTransform(infoContainer, -380, 10, 0.8, 0.8);
+    setTransform(infoContainer, -500, 10, 0.8, 0.8);
+    setTransform(betContainer, 380, 10, 0.8, 0.8);
+    setTransform(soundContainer, -380, 10, 0.8, 0.8);
 
     spinBtnContainer.on("pointerover", () => {
       spinBtnContainer.scale.set(0.78);

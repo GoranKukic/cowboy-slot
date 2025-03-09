@@ -105,10 +105,17 @@ button:focus-visible {
   }
 }
 
-/* @font-face {
-  font-family: "Durango Western Eroded";
-  src: url("public/assets/fonts/Durango-Western-Eroded-Demo.otf")
-    format("opentype");
-  font-weight: normal;
-  font-style: normal;
-} */
+#hiddenStartButton {
+  font-family: "Durango Western Eroded", sans-serif;
+  font-size: 3rem;
+  line-height: 3rem;
+  color: white;
+  background-color: #333;
+  padding: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+#hiddenStartButton:hover {
+  background-color: #555;
+}

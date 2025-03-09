@@ -50,13 +50,6 @@ export const loadTextures = async (app: PIXI.Application): Promise<void> => {
   }
 };
 
-export const hideLoadingScreen = () => {
-  const loadingScreen = document.getElementById("loading-screen");
-  if (loadingScreen) {
-    loadingScreen.style.display = "none";
-  }
-};
-
 const resizeTextures = () => {
   const mainContainer = window.__MAIN_CONTAINER__ as PIXI.Container;
   const slotContainer = window.__SLOT_CONTAINER__ as PIXI.Container;

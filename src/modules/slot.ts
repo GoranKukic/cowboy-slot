@@ -1,6 +1,8 @@
 // slot.ts
 import * as PIXI from "pixi.js";
 import { gsap } from "gsap";
+import { soundEffects } from "./gameCore";
+import { playSoundEffect } from "./sound";
 import { symbolChances, slot } from "./symbols";
 import { createSpin, Spin, randomInt } from "./spin";
 import {
@@ -51,7 +53,7 @@ let winningAmountText: PIXI.Text;
 let isAutoPlay: boolean = false;
 
 // Filters
-const desaturateEffect = new PIXI.ColorMatrixFilter();
+export const desaturateEffect = new PIXI.ColorMatrixFilter();
 desaturateEffect.desaturate();
 const greenTintEffect = new PIXI.ColorMatrixFilter();
 greenTintEffect.tint(0x71b443);
@@ -281,6 +283,7 @@ export const initSlot = function () {
 
   // Increase Bet
   betValueIncreaseText.on("pointerdown", function () {
+    playSoundEffect("btn_click");
     betValueDecreaseText.filters = [];
 
     if (betValueText.text == bets[bets.length - 1].toString()) {
@@ -299,6 +302,7 @@ export const initSlot = function () {
 
   // Decrease Bet
   betValueDecreaseText.on("pointerdown", function () {
+    playSoundEffect("btn_click");
     maxBetText.filters = [];
     betValueIncreaseText.filters = [];
 
@@ -316,6 +320,7 @@ export const initSlot = function () {
   });
 
   maxBetBtnContainer.on("pointerdown", function () {
+    playSoundEffect("btn_click");
     const maxBet = bets[bets.length - 1];
     betValueText.text = maxBet.toString();
     stake = maxBet;
@@ -326,11 +331,11 @@ export const initSlot = function () {
   });
 
   autoplayBtnContainer.on("pointerdown", function () {
+    playSoundEffect("btn_click");
     isAutoPlay = !isAutoPlay;
 
     if (isAutoPlay === true) {
       autoplayBtnText.filters = [greenTintEffect];
-      // Simulate event
       triggerSpinAction();
     } else {
       autoplayBtnText.filters = [];
@@ -342,12 +347,13 @@ function triggerSpinAction() {
   winningAmountText.text = "";
   winningLineText.text = "";
   clearCharacterReels(characterReels);
-
   if (bal - stake < 0) {
     return;
   }
 
   if (state == States.idle) {
+    playSoundEffect("spin_btn");
+
     gsap.to(spinBtnIcon, {
       rotation: "+=60",
       duration: 2,
@@ -370,6 +376,7 @@ function triggerSpinAction() {
     spinBtnIcon.alpha = 1;
     spinBtnCollectIcon.alpha = 0;
     if (tWin > 0) changeBalance(tWin);
+
     reels.forEach((reel) => {
       reel.children.forEach((ch) => {
         ch.filters = [];
@@ -398,7 +405,7 @@ export function spin() {
 
 function spinAnimation(res: Spin) {
   let timeout = 0;
-
+  playSoundEffect("reel_spin");
   reels.forEach((reel) => {
     timeout++;
     setTimeout(() => {
@@ -527,6 +534,12 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
           fixPosition();
 
           spinDone = true;
+          soundEffects["reel_stop"].volume(0.3);
+          playSoundEffect("reel_stop");
+
+          if (reelNumber == 0) {
+            soundEffects["reel_spin"].fade(0.5, 0, 900);
+          }
 
           if (reelNumber == 4) {
             gsap.killTweensOf(spinBtnIcon);
@@ -535,6 +548,8 @@ function animateReel(reel: PIXI.Container, reelNumber: number, res: Spin) {
               duration: 0,
               ease: "power1.out",
             });
+            soundEffects["reel_spin"].stop();
+            soundEffects["reel_spin"].volume(0.5);
 
             showResults(res);
           }
@@ -588,6 +603,7 @@ function showResults(result: Spin) {
       autoplayBtnContainer.filters = [grayTintEffect];
     }
     isAutoPlay = false;
+    playSoundEffect("win_sound");
 
     for (let i = 0; i < copySOWf.length; i++) {
       symbolsToHighlight[i] = [];
@@ -729,6 +745,11 @@ function changeBalance(changeBy: number) {
   }
 
   coinValueText.text = bal;
+
+  if (changeBy > 0) {
+    playSoundEffect("collect");
+    
+  }
 }
 
 function toggleGoldTile(container: PIXI.Container, shouldShow: boolean) {
