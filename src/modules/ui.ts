@@ -31,6 +31,7 @@ let soundContainer: PIXI.Container;
 export let soundValueContainer: PIXI.Container;
 
 let infoContainer: PIXI.Container;
+export let infoValueContainer: PIXI.Container;
 
 export const initLandscapeUI = function () {
   landscapeUIContainer = createContainer(window.__MAIN_CONTAINER__);
@@ -164,8 +165,6 @@ export const initLandscapeUI = function () {
   // Bet Container
   betContainer = createContainer(landscapeUIContainer);
   betContainer.label = "betContainer";
-  // betContainer.position.x = -500;
-  // betContainer.position.y = 10;
   betContainer.position.x = 0;
   betContainer.position.y = 60;
   betContainer.scale.set(0.8);
@@ -186,6 +185,7 @@ export const initLandscapeUI = function () {
   // invrease bet
   betValueIncreaseText = createText(betValueContainer, ">", secondaryTextStyle);
   betValueIncreaseText.label = "betValueIncreaseText";
+  betValueIncreaseText.style.fontSize = 48;
   betValueIncreaseText.position.x = 55;
 
   betValueIncreaseText.interactive = true;
@@ -215,6 +215,7 @@ export const initLandscapeUI = function () {
   // decrease bet
   betValueDecreaseText = createText(betValueContainer, "<", secondaryTextStyle);
   betValueDecreaseText.label = "betValueDecreaseText";
+  betValueDecreaseText.style.fontSize = 48;
   betValueDecreaseText.position.x = -55;
 
   betValueDecreaseText.interactive = true;
@@ -322,14 +323,21 @@ export const initLandscapeUI = function () {
   soundValueContainer.addChild(soundIconAllSprite);
   soundValueContainer.addChild(soundIconEffectsSprite);
   soundValueContainer.addChild(soundIconOffSprite);
+  soundValueContainer.interactive = true;
+  soundValueContainer.cursor = "pointer";
+  soundValueContainer.on("pointerover", () => {
+    soundValueContainer.scale.set(0.9);
+  });
+
+  soundValueContainer.on("pointerout", () => {
+    soundValueContainer.scale.set(1);
+  });
 
   initSound();
 
   // Info Container
   infoContainer = createContainer(landscapeUIContainer);
   infoContainer.label = "infoContainer";
-  // infoContainer.position.x = -380;
-  // infoContainer.position.y = 10;
   infoContainer.position.x = -500;
   infoContainer.position.y = 10;
   infoContainer.scale.set(0.8);
@@ -344,23 +352,27 @@ export const initLandscapeUI = function () {
   );
   infoTitleText.label = "infoTitleText";
 
-  const infoValueContainer = createContainer(infoContainer);
+  infoValueContainer = createContainer(infoContainer);
   infoValueContainer.label = "infoValueContainer";
   infoValueContainer.position.x = 0;
   infoValueContainer.position.y = 60;
+  infoValueContainer.interactive = true;
+  infoValueContainer.cursor = "pointer";
+  infoValueContainer.on("pointerover", () => {
+    infoValueContainer.scale.set(0.9);
+  });
+
+  infoValueContainer.on("pointerout", () => {
+    infoValueContainer.scale.set(1);
+  });
 
   const infoIconTexture = PIXI.Assets.get("/assets/images/info_icon.png");
   const infoIconSprite = new PIXI.Sprite(infoIconTexture);
 
-  const desaturateEffect = new PIXI.ColorMatrixFilter();
-  desaturateEffect.desaturate();
-
-  infoIconSprite.filters = [desaturateEffect];
   infoIconSprite.anchor.set(0.5, 0.5);
   infoIconSprite.width = 256;
   infoIconSprite.height = 256;
   infoIconSprite.scale.set(0.2);
-  infoIconSprite.alpha = 0.5;
 
   infoValueContainer.addChild(infoIconSprite);
 };

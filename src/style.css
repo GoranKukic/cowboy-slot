@@ -14,27 +14,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   display: flex;
   place-items: center;
-  /* overflow: hiden !important; */
-  /* min-width: 320px; */
-  /* min-height: 100vh; */
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 #app {
@@ -52,25 +39,206 @@ h1 {
   display: block;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+#hiddenStartButton {
+  font-family: "Durango Western Eroded", sans-serif;
+  font-size: 3rem;
+  line-height: 3rem;
+  color: white;
+  background-color: #333;
+  padding: 30px;
+  border: none;
+  cursor: pointer;
 }
 
-.card {
-  padding: 2em;
+#hiddenStartButton:hover {
+  background-color: #555;
 }
 
-.read-the-docs {
-  color: #888;
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+#gameInfo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 9999;
+  font-family: "Durango Western Eroded", sans-serif;
+  padding: 50px 20px;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.game-info-container {
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  background-image: url("../assets/images/info-bg-800-1200.jpg"),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+  background-size: cover;
+  background-position: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.black-line {
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 1.7em;
+  line-height: 0.1em;
+}
+
+.hand {
+  max-width: 80px;
+  width: 100%;
+}
+
+.hand-left {
+  transform: scaleX(-1);
+}
+
+#wanted-image {
+  max-height: 250px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+.payline-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.payline {
+  width: 150px;
+  height: auto;
+  margin: 10px;
+  text-align: center;
+}
+
+.payline img {
+  width: 100%;
+  height: auto;
+}
+
+.payline span {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.symbols-container {
+  display: flex;
+  max-width: 800px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.symbol {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.symbol img {
+  width: 150px;
+  height: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.symbol-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#closeGameInfo {
+  background: transparent;
+  border: 2px solid black;
+  padding: 2px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15px;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#closeGameInfo:hover {
+  background: #daa520;
+}
+
+.special-char {
+  font-family: sans-serif;
+  font-size: 18px;
+  vertical-align: text-bottom;
+}
+
+h1 {
+  font-size: 5.2em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+h3 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+h6 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 button {
@@ -92,30 +260,24 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-#hiddenStartButton {
-  font-family: "Durango Western Eroded", sans-serif;
-  font-size: 3rem;
-  line-height: 3rem;
-  color: white;
-  background-color: #333;
-  padding: 30px;
-  border: none;
+a {
+  font-weight: 500;
+  color: #000;
+  text-decoration: inherit;
   cursor: pointer;
+  transition: color 0.25s;
+}
+a:hover {
+  color: #f0b000;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
 }
 
-#hiddenStartButton:hover {
-  background-color: #555;
+@media (max-width: 520px) {
+  .hand {
+    max-width: 50px;
+  }
+
+  .star {
+    font-size: 1.5em;
+  }
 }

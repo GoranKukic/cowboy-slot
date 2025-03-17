@@ -30,6 +30,7 @@ import {
   maxBetText,
   autoplayBtnContainer,
   autoplayBtnText,
+  infoValueContainer,
 } from "./ui";
 
 // Setting variables
@@ -341,6 +342,23 @@ export const initSlot = function () {
       autoplayBtnText.filters = [];
     }
   });
+
+  infoValueContainer.on("pointerdown", function () {
+    playSoundEffect("btn_click");
+    const infoPage = document.getElementById("gameInfo");
+    if (infoPage) {
+      infoPage.style.display = "flex";
+    }
+  });
+
+  const closeInfoPageBtn = document.getElementById("closeGameInfo");
+  const infoPage = document.getElementById("gameInfo");
+  if (closeInfoPageBtn && infoPage) {
+    closeInfoPageBtn.addEventListener("click", function () {
+      playSoundEffect("btn_click");
+      infoPage.style.display = "none";
+    });
+  }
 };
 
 function triggerSpinAction() {
@@ -748,7 +766,6 @@ function changeBalance(changeBy: number) {
 
   if (changeBy > 0) {
     playSoundEffect("collect");
-    
   }
 }
 
