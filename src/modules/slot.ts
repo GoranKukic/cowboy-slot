@@ -343,21 +343,29 @@ export const initSlot = function () {
     }
   });
 
+  const infoPage = document.getElementById("gameInfo");
+
   infoValueContainer.on("pointerdown", function () {
     playSoundEffect("btn_click");
-    const infoPage = document.getElementById("gameInfo");
     if (infoPage) {
       infoPage.style.display = "flex";
     }
   });
 
-  const closeInfoPageBtn = document.getElementById("closeGameInfo");
-  const infoPage = document.getElementById("gameInfo");
-  if (closeInfoPageBtn && infoPage) {
-    closeInfoPageBtn.addEventListener("click", function () {
+  if (infoPage) {
+    infoPage.addEventListener("click", handleCloseModal);
+    infoPage.addEventListener("touchend", handleCloseModal);
+  }
+
+  function handleCloseModal(event: MouseEvent | TouchEvent) {
+    const target = event.target as HTMLElement;
+
+    if (target.classList.contains("close-gameInfoModal")) {
       playSoundEffect("btn_click");
-      infoPage.style.display = "none";
-    });
+      if (infoPage) {
+        infoPage.style.display = "none";
+      }
+    }
   }
 };
 
