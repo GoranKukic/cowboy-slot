@@ -127,6 +127,7 @@ body {
 .hand {
   max-width: 80px;
   width: 100%;
+  margin-bottom: 0px;
 }
 
 .hand-left {
@@ -208,6 +209,7 @@ body {
   width: auto;
   margin-left: auto;
   margin-right: auto;
+  color: #000;
 }
 
 #closeGameInfoBtn:hover {
@@ -236,8 +238,8 @@ body {
   top: 50%;
   left: 50%;
   width: 100%;
-  height: 4px; /* Debljina linije */
-  background-color: black; /* Boja X-a */
+  height: 4px;
+  background-color: black;
   transform-origin: center;
 }
 
@@ -247,6 +249,12 @@ body {
 
 #poster-x::after {
   transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#poster-x:hover::before,
+#poster-x:hover::after {
+  background-color: #f0b000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 #poster-x:hover {
@@ -289,9 +297,6 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -311,10 +316,15 @@ a:hover {
 
 @media (max-width: 520px) {
   .hand {
-    max-width: 50px;
+    max-width: 35px;
+    margin-bottom: 15px;
   }
 
   .star {
     font-size: 1.5em;
+  }
+
+  .star-group {
+    display: block;
   }
 }
