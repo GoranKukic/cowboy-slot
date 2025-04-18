@@ -14,7 +14,16 @@
         data="/assets/images/loading-gun.svg"
         type="image/svg+xml"
         id="loading-gun"
-        style="width: 150px; height: auto; display: block"
+        style="
+          width: 150px;
+          height: auto;
+          display: block;
+          background: transparent;
+          margin: 0;
+          padding: 0;
+          border: none;
+          max-width: 100%;
+        "
       ></object>
       <img
         src="/assets/images/loading-text.svg"
@@ -202,6 +211,25 @@
         <button id="closeGameInfoBtn" class="close-gameInfoModal">Close</button>
       </div>
     </div>
+
+    <div id="autoplayModal" class="close-autoplay-modal" style="display: none">
+      <div class="autoplay-container">
+        <div id="poster-x" class="close-autoplay-modal"></div>
+        <h3>autoplay</h3>
+        <div class="black-line"></div>
+        <h6>Chose number of the autospins</h6>
+        <button class="autoplayBtn">10</button>
+        <button class="autoplayBtn">30</button>
+        <button class="autoplayBtn">50</button>
+        <button class="autoplayBtn">80</button>
+        <button class="autoplayBtn">100</button>
+        <div class="black-line mt-30"></div>
+        <button id="startAutoplayBtn" class="autplay-btn-disabled">
+          Start Autoplay
+        </button>
+      </div>
+    </div>
+
     <div id="app"></div>
     <script type="module" src="/src/main.ts" defer></script>
   </body>

@@ -22,7 +22,8 @@ export let betValueDecreaseText: PIXI.Text;
 export let maxBetBtnContainer: PIXI.Container;
 export let maxBetText: PIXI.Text;
 export let autoplayBtnContainer: PIXI.Container;
-export let autoplayBtnText: PIXI.Text;
+export let autoplaySpinsContainer: PIXI.Container;
+export let autoplaySpinsText: PIXI.Text;
 export let landscapeUIContainer: PIXI.Container;
 let landscapeUIBase1Sprite: PIXI.Sprite;
 let coinContainer: PIXI.Container;
@@ -92,7 +93,7 @@ export const initLandscapeUI = function () {
   setTransform(autoplayBtnContainer, -200, 35, 0.8, 0.8);
   let autoplayBtnBg = createSprite(autoplayBtnContainer, "autoplay_btn.png");
   autoplayBtnBg.label = "autoplayBtnBg";
-  autoplayBtnText = createText(
+  let autoplayBtnText = createText(
     autoplayBtnContainer,
     "AUTO\nPLAY",
     primaryTextStyle
@@ -103,14 +104,26 @@ export const initLandscapeUI = function () {
   autoplayBtnContainer.interactive = true;
   autoplayBtnContainer.cursor = "pointer";
 
+  autoplaySpinsContainer = createContainer(autoplayBtnContainer);
+  autoplaySpinsContainer.label = "autoplaySpinsContainer";
+  autoplaySpinsContainer.position.x = -85;
+  autoplaySpinsContainer.position.y = -8;
+  autoplaySpinsText = createText(autoplaySpinsContainer, "", primaryTextStyle);
+  autoplaySpinsText.label = "autoplaySpinsText";
+  autoplaySpinsText.alpha = 0;
+
   autoplayBtnContainer.on("pointerover", () => {
     autoplayBtnBg.scale.set(0.97);
     autoplayBtnText.scale.set(0.97);
+    autoplaySpinsContainer.scale.set(0.97);
+    autoplaySpinsText.scale.set(0.97);
   });
 
   autoplayBtnContainer.on("pointerout", () => {
     autoplayBtnBg.scale.set(1);
     autoplayBtnText.scale.set(1);
+    autoplaySpinsContainer.scale.set(1);
+    autoplaySpinsText.scale.set(1);
   });
 
   autoplayBtnContainer.on("pointerdown", () => {

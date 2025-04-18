@@ -21,6 +21,7 @@ import {
 import {
   spinBtnContainer,
   spinBtnIcon,
+  autoplaySpinsText,
   spinBtnCollectIcon,
   coinValueText,
   betValueText,
@@ -29,9 +30,9 @@ import {
   maxBetBtnContainer,
   maxBetText,
   autoplayBtnContainer,
-  autoplayBtnText,
   infoValueContainer,
 } from "./ui";
+import { initAutoplayControls } from "./autoPlay";
 
 // Setting variables
 let startingY: number = 0;
@@ -51,7 +52,8 @@ const initialX: number = -560.5;
 const initialY: number = -315;
 let winningLineText: PIXI.Text;
 let winningAmountText: PIXI.Text;
-let isAutoPlay: boolean = false;
+export let isAutoPlay: boolean = false;
+export let autoplayCount: number = 0;
 
 // Filters
 export const desaturateEffect = new PIXI.ColorMatrixFilter();
@@ -331,18 +333,28 @@ export const initSlot = function () {
     betValueIncreaseText.filters = [grayTintEffect];
   });
 
+  // Autoplay
+  initAutoplayControls();
+  const autoplayModal = document.getElementById("autoplayModal");
+
   autoplayBtnContainer.on("pointerdown", function () {
     playSoundEffect("btn_click");
-    isAutoPlay = !isAutoPlay;
-
     if (isAutoPlay === true) {
-      autoplayBtnText.filters = [greenTintEffect];
-      triggerSpinAction();
+      isAutoPlay = false;
+      setAutoplayCount(0);
+      // autoplayBtnContainer.interactive = true;
+      // autoplayBtnContainer.filters = [];
+      // autoplayBtnText.filters = [];
     } else {
-      autoplayBtnText.filters = [];
+      if (autoplayModal) {
+        autoplayModal.style.display = "flex";
+      }
     }
   });
 
+  autoplaySpinsText.text = autoplayCount.toString();
+
+  // Info Modal
   const infoPage = document.getElementById("gameInfo");
 
   infoValueContainer.on("pointerdown", function () {
@@ -353,11 +365,11 @@ export const initSlot = function () {
   });
 
   if (infoPage) {
-    infoPage.addEventListener("click", handleCloseModal);
-    infoPage.addEventListener("touchend", handleCloseModal);
+    infoPage.addEventListener("click", handleCloseInfoModal);
+    infoPage.addEventListener("touchend", handleCloseInfoModal);
   }
 
-  function handleCloseModal(event: MouseEvent | TouchEvent) {
+  function handleCloseInfoModal(event: MouseEvent | TouchEvent) {
     const target = event.target as HTMLElement;
 
     if (target.classList.contains("close-gameInfoModal")) {
@@ -369,7 +381,7 @@ export const initSlot = function () {
   }
 };
 
-function triggerSpinAction() {
+export function triggerSpinAction() {
   winningAmountText.text = "";
   winningLineText.text = "";
   clearCharacterReels(characterReels);
@@ -395,12 +407,21 @@ function triggerSpinAction() {
     });
 
     changeBalance(-stake);
+
+    if (autoplayCount > 1) {
+      autoplayCount--;
+      autoplaySpinsText.text = autoplayCount.toString();
+    } else {
+      setAutoplayCount(0);
+    }
+
     spin();
   } else if (state == States.spinning) {
     state = States.stopping;
   } else if (state == States.resultDone) {
     spinBtnIcon.alpha = 1;
     spinBtnCollectIcon.alpha = 0;
+
     if (tWin > 0) changeBalance(tWin);
 
     reels.forEach((reel) => {
@@ -412,11 +433,28 @@ function triggerSpinAction() {
     showLines.stop();
     state = States.idle;
 
-    if (isAutoPlay === true) {
-      isAutoPlay = false;
-      autoplayBtnContainer.interactive = true;
-      autoplayBtnContainer.filters = [];
-      autoplayBtnText.filters = [];
+    if (autoplayCount > 1) {
+      autoplayCount--;
+      autoplaySpinsText.text = autoplayCount.toString();
+      playSoundEffect("spin_btn");
+
+      gsap.to(spinBtnIcon, {
+        rotation: "+=60",
+        duration: 2,
+        ease: "power1.in",
+        onComplete: function () {
+          gsap.to(spinBtnIcon, {
+            rotation: "+=300",
+            duration: 1,
+            ease: "none",
+            repeat: -1,
+          });
+        },
+      });
+      changeBalance(-stake);
+      spin();
+    } else {
+      setAutoplayCount(0);
     }
   }
 }
@@ -624,11 +662,6 @@ function showResults(result: Spin) {
 
   // We have win
   if (copySOWf.length > 0) {
-    if (isAutoPlay === true) {
-      autoplayBtnContainer.interactive = false;
-      autoplayBtnContainer.filters = [grayTintEffect];
-    }
-    isAutoPlay = false;
     playSoundEffect("win_sound");
 
     for (let i = 0; i < copySOWf.length; i++) {
@@ -645,8 +678,6 @@ function showResults(result: Spin) {
 
           winningMessage.push(`Line ${j + 1} pays ${result.winningLines[j]}`);
           start = j + 1;
-          isAutoPlay = !isAutoPlay;
-          autoplayBtnText.filters = [];
 
           break inner;
         }
@@ -678,6 +709,20 @@ function showResults(result: Spin) {
         });
       },
     });
+
+    // If there is autoplay, hide winning amount and line after 2 seconds
+    if (isAutoPlay) {
+      gsap.delayedCall(2, () => {
+        gsap.to([winningAmountText, winningLineText], {
+          alpha: 0,
+          duration: 0.3,
+          onComplete: () => {
+            winningAmountText.text = "";
+            winningLineText.text = "";
+          },
+        });
+      });
+    }
 
     if (winningMessage.length === 1) {
       winningLineText.text = winningMessage[0];
@@ -749,6 +794,10 @@ function showResults(result: Spin) {
 
         ln = (ln + 1) % symbolsToHighlight.length;
       }
+
+      if (isAutoPlay) {
+        triggerSpinAction();
+      }
     }
     time++;
   });
@@ -783,5 +832,28 @@ function toggleGoldTile(container: PIXI.Container, shouldShow: boolean) {
   );
   if (goldTile) {
     goldTile.visible = shouldShow;
+  }
+}
+
+export function setIsAutoPlay(value: boolean): void {
+  isAutoPlay = value;
+}
+
+export function setAutoplayCount(value: number): void {
+  autoplayCount = value;
+  autoplaySpinsText.text = autoplayCount.toString();
+  if (value === 0) {
+    autoplaySpinsText.alpha = 0;
+    isAutoPlay = false;
+    spinBtnContainer.interactive = true;
+    spinBtnContainer.children.forEach((child) => {
+      (child as PIXI.Sprite).filters = [];
+    });
+  } else {
+    autoplaySpinsText.alpha = 1;
+    spinBtnContainer.interactive = false;
+    spinBtnContainer.children.forEach((child) => {
+      (child as PIXI.Sprite).filters = [desaturateEffect];
+    });
   }
 }
