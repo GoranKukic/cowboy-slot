@@ -725,6 +725,7 @@ function showResults(result: Spin) {
     }
 
     if (winningMessage.length === 1) {
+      winningLineText.alpha = 1;
       winningLineText.text = winningMessage[0];
     }
 
