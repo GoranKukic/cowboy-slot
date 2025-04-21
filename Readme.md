@@ -16,7 +16,7 @@ You can play the **Cowboy Slot** game live on the hosted version:
 ## Screenshot
 Here is a screenshot of the game in action:
 
-![Cowboy Slot Screenshot](public/images/screenshot.jpg)
+![Cowboy Slot Screenshot](/public/assets/images/screenshot.jpg)
 
 
 ## Technologies Used
